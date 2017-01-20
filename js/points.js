@@ -1,0 +1,6 @@
+
+/* POINTS */
+
+MainGame.points = {
+
+};

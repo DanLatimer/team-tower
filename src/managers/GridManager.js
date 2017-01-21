@@ -28,12 +28,21 @@ class Grid {
         this.grid = createArray(this.numberRows)
             .map((row, rowIndex) => createArray(this.numberColumns)
             .map((column, columnIndex) => new Cell(this.game, this.topLeft.x, this.topLeft.y, this.cellSize, rowIndex, columnIndex)));
-
-        var grid = new PF.Grid(5, 3);
     }
 
     draw() {
+        let matrix = this._toWalkableMatrix(); 
+        let grid = new PF.Grid(matrix);
+        let finder = new PF.AStarFinder();
+        let path = finder.findPath(0, 0, this.numberColumns - 1, this.numberRows - 1, grid);
+        this._getCells().forEach(cell => cell.isWalkPath = false);
+        path.forEach(pathCell => this.grid[pathCell[1]][pathCell[0]].isWalkPath = true);
+
         this.grid.forEach(row => row.forEach(cell => cell.draw()));
+    }
+
+    _toWalkableMatrix() {
+        return this.grid.map(row => row.map(cell => cell.isBlocker() ? 1 : 0))
     }
 
     xyToGridCell(x, y) {
@@ -60,6 +69,7 @@ class Cell {
         this.row = row;
         this.column = column;
         this.contents = null;
+        this.isWalkPath = false;
 
         this.x = (this.column * this.cellSize) + this.xOffset;
         this.y = (this.row * this.cellSize) + this.yOffset; 
@@ -67,7 +77,8 @@ class Cell {
 
     draw() {
         var graphics = this.game.add.graphics(0, 0);
-        graphics.lineStyle(1, 0xffd900, 1);
+        let colour = this.isWalkPath ? 0x42f474 : 0xffd900;
+        graphics.lineStyle(1, colour, 1);
         graphics.drawRect(this.x, this.y, this.cellSize, this.cellSize);
     }
 

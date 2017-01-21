@@ -63,7 +63,8 @@ class InventoryManager {
         }
 
         var turret = new BasicTurret(this.game, cell.getCentroid());
-        cell.contents = turret; 
+        cell.contents = turret;
+        this.game.gridManager.grid.draw(); 
     }
 
     update() {

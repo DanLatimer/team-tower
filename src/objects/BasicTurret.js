@@ -12,6 +12,11 @@ class BasicTurret extends Phaser.Sprite {
 	update() {
 		this.angle += this.rotateSpeed;
 	}
+
+	move(x, y) {
+		this.x = x;
+		this.y = y;
+	}
 }
 
 export default BasicTurret;

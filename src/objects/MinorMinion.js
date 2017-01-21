@@ -11,6 +11,7 @@ class MinorMinion extends Phaser.Sprite {
         this.x = spawn.x;
         this.y = spawn.y;
         this.lastMoved = new Date();
+        this.health = 2;
     }
 
     update() {
@@ -62,6 +63,12 @@ class MinorMinion extends Phaser.Sprite {
         }
 
         this.angle += this.rotateSpeed;
+    }
+
+    hit() {
+        this.health -= 1;
+        return (this.health <= 0);
+
     }
 
     _getDistance(pointA, pointB) {

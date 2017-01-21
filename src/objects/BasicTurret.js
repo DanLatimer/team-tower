@@ -28,7 +28,7 @@ class BasicTurret extends Phaser.Sprite {
         if (this.isCursor || (now - this.lastFire) < this.rateOfFire) {
             return;
         }
-        let minions = this.game.gridManager.getMinions();
+        let minions = this.game.waveManager.getMinions();
         nn.findMostSimilar(this, minions, [
             {name: "x", measure: nn.comparisonMethods.number, max: this.game.world.length},
             {name: "y", measure: nn.comparisonMethods.number, max: this.game.world.height}
@@ -44,7 +44,10 @@ class BasicTurret extends Phaser.Sprite {
             let c = Math.sqrt((a * a) + (b * b));
             if (c < this.range) {
                 this.lastFire = now;
-                this.game.gridManager.removeMinion(nearestNeighbor);
+                const dead = nearestNeighbor.hit();
+                if (dead) {
+                    this.game.waveManager.removeMinion(nearestNeighbor);
+                }
             }
         });
 	}

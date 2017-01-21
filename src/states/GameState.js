@@ -24,8 +24,9 @@ class GameState extends Phaser.State {
         this.waveManager = new WaveManager(this.game);
 
         this.guiManager.setup();
-        this.inputManager.setup();
         this.waveManager.setup();
+
+        this.game.input.onUp.add(this.buyBasicTurret, this);
     }
 
     update() {
@@ -35,6 +36,11 @@ class GameState extends Phaser.State {
         this.waveManager.update();
     }
 
+	buyBasicTurret() {
+		var {x, y} = this.input.activePointer;
+		console.log(`clicked ${x}, ${y}`);
+		var turret = new BasicTurret(this.game, {x, y});
+	}
 }
 
 export default GameState;

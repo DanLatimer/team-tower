@@ -1,5 +1,5 @@
 import InventoryManager from '../../managers/InventoryManager';
-import BlockerButton from './BLockerButton'
+import BlockerButton from './BlockerButton'
 
 class Market extends Phaser.Group {
 

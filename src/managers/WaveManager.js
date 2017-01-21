@@ -8,7 +8,6 @@ class WaveManager {
         this.waveNumber = 0;
         this.timeSinceWaveStarted = new Date();
         this.minionsToDeploy = Waves[0].minorMinions;
-        this.minions = [];
     }
 
     getMinions() {
@@ -21,11 +20,9 @@ class WaveManager {
     }
 
     setup() {
-        var initialCell = this.game.gridManager.grid.grid[0][0];
+        this.initialCell = this.game.gridManager.grid.grid[0][0];
         
-        this.minions = [
-        new MinorMinion(this.game, initialCell.getCentroid());
-        ];
+        this.minions = [];
     }
 
     update() {

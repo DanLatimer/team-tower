@@ -41,12 +41,13 @@ class InventoryManager {
                 return;
             }
 
-            let location = this.getGridCenterFromPosition(this.game.input.activePointer);
-            if (!location) {
+            let cell = this.getGridCellFromPosition(this.game.input.activePointer);
+            if (!cell) {
                 this.cursorView.visible = false;
                 return;
             }
             this.cursorView.visible = true;
+            let location = cell.getCentroid();
             this.cursorView.move(location.x, location.y);
         });
 
@@ -80,26 +81,23 @@ class InventoryManager {
     }
 
     placeBlocker() {
-        let location = this.getGridCenterFromPosition(this.game.input.activePointer);
-        if (!location) {
+        let cell = this.getGridCellFromPosition(this.game.input.activePointer);
+        if (!cell) {
             return;
         }
         let item = this.inventory[this.selectedBlocker];
         if (item.cost <= this.coins) {
             this.coins -= item.cost;
-            let blocker = this.getSelectedBlockerView(location);
+            let blocker = this.getSelectedBlockerView(cell.getCentroid());
             cell.contents = blocker;
+            this.game.gridManager.grid.draw();
             return true;
         }
         return false;
     }
 
-    getGridCenterFromPosition(position) {
-        let cell = this.game.gridManager.grid.xyToGridCell(position.x, position.y);
-        if (!cell) {
-            return;
-        }
-        return cell.getCentroid();
+    getGridCellFromPosition(position) {
+        return this.game.gridManager.grid.xyToGridCell(position.x, position.y);
     }
 
     getSelectedBlockerView(position) {

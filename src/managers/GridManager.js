@@ -126,10 +126,6 @@ class Cell {
         var withinX = x >= this.x && x < this.x + this.cellSize;
         var withinY = y >= this.y && y < this.y + this.cellSize;
 
-        if (withinX && withinY) {
-            console.log(`containing cell found: row ${this.row}, column ${this.column}`)
-        }
-
         return withinX && withinY;
     }
 

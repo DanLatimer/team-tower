@@ -1,5 +1,6 @@
 import BasicWall from 'objects/BasicWall';
 import BasicTurret from 'objects/BasicTurret';
+import RangedBlockerCursor from 'objects/RangedBlockerCursor';
 
 class InventoryManager {
 
@@ -78,7 +79,11 @@ class InventoryManager {
         if (this.cursorView) {
             this.cursorView.destroy();
         }
-        this.cursorView = this.getSelectedBlockerView({x: 0, y: 0}, true);
+        let blocker = this.getSelectedBlockerView({x: 0, y: 0}, true);
+        if (blocker.range) {
+            blocker = new RangedBlockerCursor(this.game, blocker);
+        }
+        this.cursorView = blocker;
         this.cursorView.visible = false;
     }
 

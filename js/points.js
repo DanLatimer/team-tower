@@ -1,6 +1,0 @@
-
-/* POINTS */
-
-MainGame.points = {
-
-};

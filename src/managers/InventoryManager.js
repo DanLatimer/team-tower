@@ -41,7 +41,7 @@ class InventoryManager {
                 return;
             }
 
-            let location = this.getGridCenterFromPosition(this.game.input.activePointer);
+            let location = this.getGridCenterFromPosition({x, y});
             if (!location) {
                 this.cursorView.visible = false;
                 return;
@@ -63,6 +63,7 @@ class InventoryManager {
             this.cursorView.destroy();
         }
         this.cursorView = this.getSelectedBlockerView({x: 0, y: 0})
+        this.cursorView.visible = false;
     }
 
     placeBlocker() {

@@ -23,7 +23,7 @@ class InventoryManager {
     }
 
     constructor(game) {
-       this.game = game;
+        this.game = game;
     }
 
     setup(initialCoins) {
@@ -36,18 +36,17 @@ class InventoryManager {
 
         this.selectBlocker(InventoryManager.BLOCKER_TYPES.BASIC_WALL);
 
-        this.game.input.addMoveCallback((pointer, x, y) => {  
+        this.game.input.addMoveCallback((pointer, x, y) => {
             if (!this.cursorView) {
                 return;
             }
 
-            let cell = this.game.gridManager.grid.xyToGridCell(x, y);
-            if (!cell) {
+            let location = this.getGridCenterFromPosition(this.game.input.activePointer);
+            if (!location) {
                 this.cursorView.visible = false;
                 return;
             }
             this.cursorView.visible = true;
-            let location = cell.getCentroid();
             this.cursorView.move(location.x, location.y);
         });
 
@@ -60,11 +59,17 @@ class InventoryManager {
 
     selectBlocker(item_type) {
         this.selectedBlocker = item_type;
+        if (this.cursorView) {
+            this.cursorView.destroy();
+        }
         this.cursorView = this.getSelectedBlockerView({x: 0, y: 0})
     }
 
     placeBlocker() {
-
+        let location = this.getGridCenterFromPosition(this.game.input.activePointer);
+        if (!location) {
+            return;
+        }
         let item = this.inventory[this.selectedBlocker];
         if (item.cost <= this.coins) {
             this.coins -= item.cost;
@@ -72,6 +77,14 @@ class InventoryManager {
             return true;
         }
         return false;
+    }
+
+    getGridCenterFromPosition(position) {
+        let cell = this.game.gridManager.grid.xyToGridCell(position.x, position.y);
+        if (!cell) {
+            return;
+        }
+        return cell.getCentroid();
     }
 
     getSelectedBlockerView(position) {

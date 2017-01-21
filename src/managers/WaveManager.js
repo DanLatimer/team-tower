@@ -8,13 +8,24 @@ class WaveManager {
     }
 
     setup() {
-        var initialCell = this.game.gridManager.grid.grid[0][0];
-        
-        new MinorMinion(this.game, initialCell.getCentroid());
+        let initialCell = this.game.gridManager.grid.grid[0][0];
+
+        this.minions = [
+            new MinorMinion(this.game, initialCell.getCentroid())
+        ];
     }
 
     update() {
 
+    }
+
+    getMinions() {
+        return this.minions;
+    }
+
+    removeMinion(minion) {
+        this.minions = this.minions.filter((m) => { return (m != minion) });
+        minion.destroy();
     }
 }
 

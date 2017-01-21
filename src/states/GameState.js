@@ -11,7 +11,6 @@ class GameState extends Phaser.State {
 
 	create() {
         let center = { x: this.game.world.centerX, y: this.game.world.centerY };
-        var turret = new BasicTurret(this.game, {x: center.x, y: center.y});
 
         this.game.gridManager.setup();
         this.game.guiManager.setup();

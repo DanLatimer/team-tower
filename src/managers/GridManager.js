@@ -59,6 +59,7 @@ class Cell {
         this.cellSize = cellSize;
         this.row = row;
         this.column = column;
+        this.contents = null;
 
         this.x = (this.column * this.cellSize) + this.xOffset;
         this.y = (this.row * this.cellSize) + this.yOffset; 
@@ -87,6 +88,10 @@ class Cell {
             x: this.x + halfCellSize,
             y: this.y + halfCellSize
         };
+    }
+
+    isBlocker() {
+        return this.contents != null;
     }
 }
 

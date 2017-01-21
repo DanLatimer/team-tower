@@ -53,6 +53,19 @@ class InventoryManager {
         this.game.input.onUp.add(this.placeBlocker, this);
     }
 
+    _buyBasicTurret() {
+        var {x, y} = this.game.input.activePointer;
+        console.log(`clicked ${x}, ${y}`);
+        
+        let cell = this.game.gridManager.grid.xyToGridCell(x, y);
+        if (!cell) {
+            return;
+        }
+
+        var turret = new BasicTurret(this.game, cell.getCentroid());
+        cell.contents = turret; 
+    }
+
     update() {
 
     }
@@ -73,7 +86,8 @@ class InventoryManager {
         let item = this.inventory[this.selectedBlocker];
         if (item.cost <= this.coins) {
             this.coins -= item.cost;
-            this.getSelectedBlockerView(location);
+            let blocker = this.getSelectedBlockerView(location);
+            cell.contents = blocker;
             return true;
         }
         return false;

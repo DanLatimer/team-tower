@@ -22,14 +22,14 @@ class MinorMinion extends Phaser.Sprite {
         let exitCell = grid.getExitCell();
         if (currentCell.equals(exitCell)) {
             console.log("MinorMinion escaped!");
-            this.destroy();
+            this.game.waveManager.removeMinion(this);
             return;
         }
 
         let path = grid.findPath({row: currentCell.row, col: currentCell.column});
         if (!path) {
             console.log('MinorMinion blocked');
-            this.destroy();
+            this.game.waveManager.removeMinion(this);
             return;
         }
 

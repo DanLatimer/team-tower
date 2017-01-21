@@ -6,10 +6,10 @@ class HUD extends Phaser.Group {
         super(game, null, 'market');
         this.game = game;
 
-        this.coinsView = new RainbowText(game, 0, 15, this.getCoinsViewText());
-        this.healthView = new RainbowText(game, 300, 15, this.getHealthViewText());
-        this.add(this.coinsView);
+        this.healthView = new RainbowText(game, 0, 15, this.getHealthViewText());
+        this.coinsView = new RainbowText(game, 250, 15, this.getCoinsViewText());
         this.add(this.healthView);
+        this.add(this.coinsView);
 
         this.x = 50;
 
@@ -17,11 +17,11 @@ class HUD extends Phaser.Group {
     }
 
     update() {
-        if (this.coinsView.text != this.getCoinsViewText()) {
-            this.coinsView.setText(this.getCoinsViewText());
-        }
         if (this.healthView.text != this.getHealthViewText()) {
             this.healthView.setText(this.getHealthViewText());
+        }
+        if (this.coinsView.text != this.getCoinsViewText()) {
+            this.coinsView.setText(this.getCoinsViewText());
         }
     }
 

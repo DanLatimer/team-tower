@@ -1,18 +1,41 @@
-var PF = require('pathfinding');
+import PF from 'pathfinding';
+import BasicWall from '../objects/BasicWall';
 
 class GridManager {
     constructor(game) {
         this.game = game;
-        
     }
 
     setup() {
         this.grid = new Grid(this.game);
         this.grid.draw();
+
+        let first = this.grid.grid[4][5].getCentroid();
+        let second = this.grid.grid[2][8].getCentroid();
+        let third = this.grid.grid[3][10].getCentroid();
+        let fourth = this.grid.grid[9][4].getCentroid();
+        let fifth = this.grid.grid[6][1].getCentroid();
+
+        this.minions = [
+            new BasicWall(this.game, first),
+            new BasicWall(this.game, second),
+            new BasicWall(this.game, third),
+            new BasicWall(this.game, fourth),
+            new BasicWall(this.game, fifth)
+        ]
     }
 
     update() {
 
+    }
+
+    getMinions() {
+       return this.minions;
+    }
+
+    removeMinion(minion) {
+        this.minions = this.minions.filter((m) => { return (m != minion) });
+        minion.destroy();
     }
 }
 

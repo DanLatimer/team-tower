@@ -78,7 +78,7 @@ class InventoryManager {
         if (this.cursorView) {
             this.cursorView.destroy();
         }
-        this.cursorView = this.getSelectedBlockerView({x: 0, y: 0});
+        this.cursorView = this.getSelectedBlockerView({x: 0, y: 0}, true);
         this.cursorView.visible = false;
     }
 
@@ -102,12 +102,12 @@ class InventoryManager {
         return this.game.gridManager.grid.xyToGridCell(position.x, position.y);
     }
 
-    getSelectedBlockerView(position) {
+    getSelectedBlockerView(position, isCursor) {
         switch (this.selectedBlocker) {
             case InventoryManager.BLOCKER_TYPES.BASIC_WALL:
-                return new BasicWall(this.game, position);
+                return new BasicWall(this.game, position, isCursor);
             case InventoryManager.BLOCKER_TYPES.BASIC_TURRET:
-                return new BasicTurret(this.game, position);
+                return new BasicTurret(this.game, position, isCursor);
             default:
                 console.log(`unexpected item_type: ${this.selectedBlocker}`);
         }

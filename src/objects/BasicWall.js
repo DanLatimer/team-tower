@@ -10,7 +10,6 @@ class BasicWall extends Phaser.Sprite {
     }
 
     update() {
-        this.angle += this.rotateSpeed;
     }
 
     move(x, y) {

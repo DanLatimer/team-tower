@@ -1,8 +1,3 @@
-import CollisionManager from 'managers/CollisionManager';
-import InputManager from 'managers/InputManager';
-import InventoryManager from 'managers/InventoryManager';
-import GUIManager from 'managers/GUIManager';
-import WaveManager from 'managers/WaveManager';
 import BasicTurret from 'objects/BasicTurret';
 import {Resources} from 'resources';
 
@@ -17,23 +12,16 @@ class GameState extends Phaser.State {
         let center = { x: this.game.world.centerX, y: this.game.world.centerY };
         var turret = new BasicTurret(this.game, {x: center.x, y: center.y});
 
-        this.collisionManager = new CollisionManager(this.game);
-        this.inputManager = new InputManager(this.game);
-        this.inventoryManager = new InventoryManager(this.game);
-        this.guiManager = new GUIManager(this.game);
-        this.waveManager = new WaveManager(this.game);
-
-        this.guiManager.setup();
-        this.waveManager.setup();
-
-        this.game.input.onUp.add(this.buyBasicTurret, this);
+        this.game.guiManager.setup();
+        this.game.waveManager.setup();
+        this.game.inputManager.setup();
     }
 
     update() {
-        this.inputManager.update();
-        this.collisionManager.update();
-        this.guiManager.update();
-        this.waveManager.update();
+        this.game.inputManager.update();
+        this.game.collisionManager.update();
+        this.game.guiManager.update();
+        this.game.waveManager.update();
     }
 
 	buyBasicTurret() {

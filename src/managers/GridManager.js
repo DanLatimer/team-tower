@@ -54,14 +54,27 @@ class Grid {
     }
 
     draw() {
-        let matrix = this._toWalkableMatrix(); 
-        let grid = new PF.Grid(matrix);
-        let finder = new PF.AStarFinder();
-        let path = finder.findPath(0, 0, this.numberColumns - 1, this.numberRows - 1, grid);
+        let path = this.findPath({row: 0, col: 0})
         this._getCells().forEach(cell => cell.isWalkPath = false);
-        path.forEach(pathCell => this.grid[pathCell[1]][pathCell[0]].isWalkPath = true);
+        path.forEach(pathCell => this.getCell(pathCell).isWalkPath = true);
 
         this.grid.forEach(row => row.forEach(cell => cell.draw()));
+    }
+
+    getCell(cellLocationArray) {
+        return this.grid[cellLocationArray[1]][cellLocationArray[0]];
+    }
+
+    findPath(startLocation) {
+        let exitCell = this.getExitCell();
+        let matrix = this._toWalkableMatrix(); 
+        let grid = new PF.Grid(matrix);
+        let finder = new PF.BiDijkstraFinder();//new PF.AStarFinder();
+        return finder.findPath(startLocation.col, startLocation.row, exitCell.column, exitCell.row, grid);
+    }
+
+    getExitCell() {
+        return this.grid[this.numberRows - 1][this.numberColumns - 1];
     }
 
     _toWalkableMatrix() {
@@ -98,6 +111,10 @@ class Cell {
         this.y = (this.row * this.cellSize) + this.yOffset; 
     }
 
+    equals(otherCell) {
+        return this.row === otherCell.row && this.column === otherCell.column;
+    }
+
     draw() {
         var graphics = this.game.add.graphics(0, 0);
         let colour = this.isWalkPath ? 0x42f474 : 0xffd900;
@@ -106,8 +123,8 @@ class Cell {
     }
 
     contains(x, y) {
-        var withinX = x > this.x && x < this.x + this.cellSize;
-        var withinY = y > this.y && y < this.y + this.cellSize;
+        var withinX = x >= this.x && x < this.x + this.cellSize;
+        var withinY = y >= this.y && y < this.y + this.cellSize;
 
         if (withinX && withinY) {
             console.log(`containing cell found: row ${this.row}, column ${this.column}`)

@@ -21,6 +21,10 @@ class Market extends Phaser.Group {
         this.game.stage.addChild(this);
     }
 
+    update() {
+        
+    }
+
 }
 
 export default Market;

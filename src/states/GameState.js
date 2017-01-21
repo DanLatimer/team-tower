@@ -16,7 +16,7 @@ class GameState extends Phaser.State {
         this.game.guiManager.setup();
         this.game.waveManager.setup();
         this.game.inputManager.setup(); 
-        this.game.inventoryManager.setup(100);
+        this.game.inventoryManager.setup(20, 100);
     }
 
     update() {

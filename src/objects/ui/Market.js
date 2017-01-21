@@ -1,22 +1,22 @@
 import InventoryManager from '../../managers/InventoryManager';
-import BlockerButton from './BLockerButton'
+import BlockerButton from './BlockerButton'
 
 class Market extends Phaser.Group {
 
     constructor(game) {
-        let center = { x: game.world.centerX, y: game.world.centerY };
         super(game, null, 'market');
         this.game = game;
 
         let types = InventoryManager.BLOCKER_TYPES;
-        let col = 0;
+        let row = 0;
         for(let type in types) {
-            let blockerButton = new BlockerButton(this.game, {x: 64 * col, y: 32}, types[type]);
+            let blockerButton = new BlockerButton(this.game, {x: 0, y: 64 * row}, types[type]);
             this.add(blockerButton);
-            col += 1;
+            row += 1;
         }
 
-        this.fixedToCamera = true;
+        this.x = this.game.world.right + 25;
+        this.y = this.game.world.top;
 
         this.game.stage.addChild(this);
     }

@@ -12,13 +12,13 @@ class InventoryManager {
 
     static get BASIC_WALL() {
         return {
-            cost: 1
+            cost: 5
         };
     }
 
     static get BASIC_TURRET() {
         return {
-            cost: 5
+            cost: 15
         };
     }
 
@@ -26,7 +26,8 @@ class InventoryManager {
         this.game = game;
     }
 
-    setup(initialCoins) {
+    setup(initialHealth, initialCoins) {
+        this.health = initialHealth;
         this.coins = initialCoins;
 
         this.inventory = {};
@@ -77,7 +78,7 @@ class InventoryManager {
         if (this.cursorView) {
             this.cursorView.destroy();
         }
-        this.cursorView = this.getSelectedBlockerView({x: 0, y: 0})
+        this.cursorView = this.getSelectedBlockerView({x: 0, y: 0});
         this.cursorView.visible = false;
     }
 

@@ -33,7 +33,6 @@ class BasicTurret extends Phaser.Sprite {
             {name: "x", measure: nn.comparisonMethods.number, max: this.game.world.width},
             {name: "y", measure: nn.comparisonMethods.number, max: this.game.world.height}
         ], (nearestNeighbor, probability) => {
-            debugger;
             if (!nearestNeighbor) {
                 return;
             }

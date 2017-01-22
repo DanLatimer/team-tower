@@ -88,6 +88,11 @@ class WaveManager {
 
     _triggerNextWave() {
         if (this.waveNumber >= Waves.length - 1) {
+            if (this.getMinions().length == 0) {
+                this.game.state.states['GameOverState'].win = true;
+                this.game.state.start('GameOverState');                
+            }
+
             return;
         }
 

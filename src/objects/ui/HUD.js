@@ -5,7 +5,7 @@ import WaveManager from '../../managers/WaveManager';
 class HUD extends Phaser.Group {
 
     constructor(game) {
-        super(game, null, 'market');
+        super(game, null, 'hud');
         this.game = game;
 
         this.gameName = new BitmapText(game, 5, 5, 'Murmuring Waters TD');

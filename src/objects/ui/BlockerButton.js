@@ -6,13 +6,17 @@ class BlockerButton extends Phaser.Button {
         this.game = game;
         this.blockerType = blockerType;
         this.onInputDown.add(this._selectBlocker, this);
+        this.selected = false;
+        this.alpha = 0.5;
     }
 
     update() {
         if (this.game.inventoryManager.selectedBlocker == this.blockerType) {
             // show selected
+            this.alpha = 1;
         } else {
             // show unselected
+            this.alpha = 0.5;
         }
     }
 

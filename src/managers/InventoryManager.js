@@ -74,6 +74,17 @@ class InventoryManager {
 
     }
 
+    addCoins(coins) {
+        this.coins += coins;
+    }
+
+    reduceHealth() {
+        this.health -= 1;
+        if (this.health <= 0) {
+            console.log("You died!");
+        }
+    }
+
     selectBlocker(item_type) {
         this.selectedBlocker = item_type;
         if (this.cursorView) {

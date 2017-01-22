@@ -15,7 +15,7 @@ class HUD extends Phaser.Group {
         this.x = 50;
 
         Object.values(WaveManager.SPEEDS).forEach((speed, index) => {
-            this.add(new SpeedButton(this.game, {x: 540 + (index * 64 + 8), y: 20}, speed));
+            this.add(new SpeedButton(this.game, {x: 500 + ((index * 64) + (index * 24)), y: 20}, speed));
         });
 
         this.game.stage.addChild(this);

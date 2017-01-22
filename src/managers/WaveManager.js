@@ -2,6 +2,7 @@ import MinorMinion from 'objects/MinorMinion';
 import MajorMinion from 'objects/MajorMinion';
 import SlowMinion from 'objects/SlowMinion';
 import FastMinion from 'objects/FastMinion';
+import BossMinion from 'objects/BossMinion';
 
 const Waves = [
     {
@@ -20,9 +21,29 @@ const Waves = [
         waveDelay: 3 * 1000
     },
     {
+        numberOfMinions: 1,
+        minionType: BossMinion,
+        waveDelay: 15 * 1000
+    },
+    {
         numberOfMinions: 30,
         minionType: FastMinion,
         waveDelay: 0.25 * 1000
+    },
+    {
+        numberOfMinions: 20,
+        minionType: MinorMinion,
+        waveDelay: 0.5 * 1000
+    },
+    {
+        numberOfMinions: 15,
+        minionType: MajorMinion,
+        waveDelay: 1.5 * 1000
+    },
+    {
+        numberOfMinions: 3,
+        minionType: BossMinion,
+        waveDelay: 3 * 1000
     }
 ];
 

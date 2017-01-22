@@ -75,6 +75,7 @@ class InventoryManager {
         }
 
         var turret = new BasicTurret(this.game, cell.getCentroid());
+        turret.setSpeed(this.game.waveManager.getSpeed());
         cell.contents = turret;
         this.game.gridManager.grid.draw(); 
     }

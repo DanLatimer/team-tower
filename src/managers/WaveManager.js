@@ -49,12 +49,25 @@ const Waves = [
 
 class WaveManager {
 
+    static get SPEEDS() {
+        return {
+            slow: 'slow',
+            medium: 'medium',
+            fast: 'fast'
+        };
+    }
+
     constructor(game) {
         this.game = game;
 
         this.waveNumber = 0;
-        this.timeSinceWaveStarted = new Date().getTime() + 5000;
+        this.timeSinceMinionDeployed = new Date().getTime() + 5000;
         this.minionsToDeploy = Waves[0].numberOfMinions;
+        this.speed = 1;
+    }
+
+    getSpeed() {
+        return this.speed;
     }
 
     getMinions() {
@@ -73,10 +86,7 @@ class WaveManager {
     }
 
     update() {
-        const waveElapsedMillis = this._getWaveElapsedMillis();
-        const wave = this._getWave();
-
-        if (waveElapsedMillis > this._getWaveTime()) {
+        if (this._shouldStartNextWave()) {
             this._triggerNextWave();
             return;
         }
@@ -87,13 +97,33 @@ class WaveManager {
                 this.game.audio.themeMusic.play();
                 this.musicPlaying = true;
             }
-            this._deployMinion(wave.minionType);
+            this._deployMinion(this._getWave().minionType);
             return;
         }
     }
 
-    _getWaveElapsedMillis() {
-        return new Date() - this.timeSinceWaveStarted;
+    _shouldStartNextWave() {
+        return this.minionsToDeploy <= 0 && this._isMinionDelayElapsed();
+    }
+
+    selectSpeed(speed) {
+        switch(speed) {
+            case WaveManager.SPEEDS.slow:
+                this.speed = 1;
+                break;
+            case WaveManager.SPEEDS.medium:
+                this.speed = 2;
+                break;
+            case WaveManager.SPEEDS.fast:
+                this.speed = 4;
+                break;
+        }
+        this.game.gridManager.setSpeed(this.speed);
+        this.minions.forEach(minion => minion.setSpeed(this.speed));
+    }
+
+    _getWaveDelay() {
+        return this._getWave().waveDelay / this.speed;
     }
 
     _getWave() {
@@ -104,12 +134,13 @@ class WaveManager {
         if (this.minionsToDeploy <= 0) {
             return false;
         }
-        const wave = this._getWave();
-        const minionsDeployed = wave.numberOfMinions - this.minionsToDeploy;
 
-        const elapsedTillNextMinion = wave.waveDelay * minionsDeployed;
-        const elapsedMillis = this._getWaveElapsedMillis();
-        return elapsedMillis > elapsedTillNextMinion;
+        return this._isMinionDelayElapsed();
+    }
+
+    _isMinionDelayElapsed() {
+        const elapsedSinceLastMinion = new Date().getTime() - this.timeSinceMinionDeployed;
+        return elapsedSinceLastMinion > this._getWaveDelay();
     }
 
     _triggerNextWave() {
@@ -124,18 +155,15 @@ class WaveManager {
 
         this.waveNumber++;
         this.minionsToDeploy = this._getWave().numberOfMinions;
-        this.timeSinceWaveStarted = new Date();
+        this.timeSinceMinionDeployed = new Date();
     }
 
     _deployMinion(minionType) {
-        this.minions.push(new minionType(this.game, this.initialCell.getCentroid()));
+        this.timeSinceMinionDeployed = new Date();
+        const minion = new minionType(this.game, this.initialCell.getCentroid());
+        minion.setSpeed(this.speed);
+        this.minions.push(minion);
         this.minionsToDeploy--;
-    }
-
-    _getWaveTime() {
-        const wave = this._getWave();
-
-        return (wave.numberOfMinions * wave.waveDelay) + 7000;
     }
 }
 

@@ -16,6 +16,10 @@ class BasicWall extends Phaser.Sprite {
         this.x = x;
         this.y = y;
     }
+
+    setSpeed() {
+        
+    }
 }
 
 export default BasicWall;

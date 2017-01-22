@@ -14,6 +14,13 @@ class GridManager {
     update() {
 
     }
+
+    setSpeed(speed) {
+        this.grid._getCells()
+            .filter(cell => cell.contents != null)
+            .map(cell => cell.contents)
+            .forEach(tower => tower.setSpeed(speed));
+    }
 }
 
 class Grid {

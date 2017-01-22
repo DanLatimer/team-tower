@@ -13,6 +13,7 @@ class Minion extends Phaser.Sprite {
         this.lastMoved = new Date();
         this.initialHealth = Number(health); 
         this.health = Number(health);
+        this.speed = 1;
 
         this.myHealthBar = new HealthBar(this.game, {
             x: this.x - 20, 
@@ -27,7 +28,6 @@ class Minion extends Phaser.Sprite {
 
     update() {
         let {grid} = this.game.gridManager;
-        console.log("update");
 
         let currentCell = grid.xyToGridCell(this.x, this.y);
         let exitCell = grid.getExitCell();
@@ -74,6 +74,10 @@ class Minion extends Phaser.Sprite {
         this.angle += this.rotateSpeed;
     }
 
+    setSpeed(speed) {
+        this.speed = speed;
+    }
+
     _move(x, y) {
         this.x = x;
         this.y = y;
@@ -107,7 +111,7 @@ class Minion extends Phaser.Sprite {
         let millisSinceLastMoved = currentTime - this.lastMoved;
         this.lastMoved = currentTime;
 
-        return this.pixelsPerSecond * (millisSinceLastMoved / 1000);
+        return this.pixelsPerSecond * this.speed * (millisSinceLastMoved / 1000);
     }
 }
 

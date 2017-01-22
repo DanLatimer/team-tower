@@ -135,6 +135,7 @@ function build() {
 function serve() {
     
     var options = {
+        port: process.env.PORT || 5000,
         server: {
             baseDir: BUILD_PATH
         },
@@ -152,7 +153,6 @@ function serve() {
     });
 
 }
-
 
 gulp.task('cleanBuild', cleanBuild);
 gulp.task('copyStatic', ['cleanBuild'], copyStatic);

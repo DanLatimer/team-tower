@@ -22,7 +22,7 @@ class Game extends Phaser.Game {
 	}
 
     create() {
-
+        this.stage.backgroundColor = "#4488AA";
     }
 }
 

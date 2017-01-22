@@ -11,6 +11,7 @@ class GameOverState extends Phaser.State {
 
         var s = this.add.sprite(center.x, center.y, gameOverStateSprite);
         s.anchor.setTo(0.5, 0.5);
+        this.stage.backgroundColor = "#383838";
     }
 }
 

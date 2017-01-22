@@ -12,6 +12,7 @@ class MinorMinion extends Phaser.Sprite {
         this.y = spawn.y;
         this.lastMoved = new Date();
         this.health = 2;
+        this.bounty = 10;
     }
 
     update() {
@@ -22,6 +23,7 @@ class MinorMinion extends Phaser.Sprite {
         let exitCell = grid.getExitCell();
         if (currentCell.equals(exitCell)) {
             console.log("MinorMinion escaped!");
+            this.game.inventoryManager.reduceHealth();
             this.game.waveManager.removeMinion(this);
             return;
         }
@@ -67,8 +69,10 @@ class MinorMinion extends Phaser.Sprite {
 
     hit() {
         this.health -= 1;
-        return (this.health <= 0);
-
+        if (this.health <= 0) {
+            this.game.inventoryManager.addCoins(this.bounty);
+            this.game.waveManager.removeMinion(this);
+        }
     }
 
     _getDistance(pointA, pointB) {

@@ -44,10 +44,7 @@ class BasicTurret extends Phaser.Sprite {
             let c = Math.sqrt((a * a) + (b * b));
             if (c < this.range) {
                 this.lastFire = now;
-                const dead = nearestNeighbor.hit();
-                if (dead) {
-                    this.game.waveManager.removeMinion(nearestNeighbor);
-                }
+                nearestNeighbor.hit();
             }
         });
 	}

@@ -1,5 +1,6 @@
 import MinorMinion from 'objects/MinorMinion';
 import MajorMinion from 'objects/MajorMinion';
+import FastMinion from 'objects/FastMinion';
 
 class WaveManager {
 
@@ -87,7 +88,7 @@ const Waves = [
     {
         numberOfMinions: 20,
         minionType: MinorMinion,
-        waveDelay: 1.5 * 1000
+        waveDelay: 1 * 1000
     },
     {
         numberOfMinions: 15,
@@ -95,8 +96,13 @@ const Waves = [
         waveDelay: 3 * 1000
     },
     {
-        numberOfMinions: 20,
+        numberOfMinions: 30,
         minionType: MajorMinion,
+        waveDelay: 3 * 1000
+    },
+    {
+        numberOfMinions: 30,
+        minionType: FastMinion,
         waveDelay: 3 * 1000
     }
 ];

@@ -4,6 +4,9 @@ export const Resources = {
         {name: 'youLose', path: 'images/youLose.png'},
         {name: 'youWin', path: 'images/youWin.png'},
         {name: 'gridBackground', path: 'images/grid_background.jpg'},
+        {name: 'slow', path: 'images/slow.png'},
+        {name: 'medium', path: 'images/medium.png'},
+        {name: 'fast', path: 'images/fast.png'},
     ],
     spriteSheets: [
         {name: 'slime', path: 'images/slime.png', width: 36, height: 36, frames: 16},

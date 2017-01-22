@@ -12,7 +12,7 @@ class BasicTurret extends Phaser.Sprite {
 		this.rateOfFire = 1500;
 		this.lastFire = new Date().getTime() + this.rateOfFire;
 		this.game.stage.addChild(this);
-
+        this.speed = 1;
         this.animations.add('fire');
     }
 
@@ -25,11 +25,16 @@ class BasicTurret extends Phaser.Sprite {
 		this.y = y;
 	}
 
+    setSpeed(speed) {
+        this.speed = speed;
+    }
+
 	attack() {
         const now = Date.now();
-        if (this.isCursor || (now - this.lastFire) < this.rateOfFire) {
+        if (!this._shouldFire()) {
             return;
         }
+
         let minions = this.game.waveManager.getMinions();
         nn.findMostSimilar(this, minions, [
             {name: "x", measure: nn.comparisonMethods.number, max: this.game.world.width},
@@ -38,8 +43,7 @@ class BasicTurret extends Phaser.Sprite {
             if (!nearestNeighbor) {
                 return;
             }
-            console.log(nearestNeighbor);
-            console.log(probability);
+
             let a = this.centerX - nearestNeighbor.centerX;
             let b = this.centerY - nearestNeighbor.centerY;
 
@@ -47,11 +51,20 @@ class BasicTurret extends Phaser.Sprite {
             if (c < this.range) {
                 this.game.audio.shoot.play();
                 this.animations.play('fire', 30);
-                this.lastFire = now;
+                this.lastFire = new Date();
                 nearestNeighbor.hit();
             }
         });
 	}
+
+    _shouldFire() {
+        if (this.isCursor) {
+            return false;
+        }
+
+        const elapsedTimeSinceLastFire = new Date().getTime() - this.lastFire;
+        return elapsedTimeSinceLastFire > (this.rateOfFire / this.speed);
+    }
 }
 
 export default BasicTurret;

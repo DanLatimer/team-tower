@@ -16,5 +16,9 @@ export const Resources = {
     ],
     fonts: [
         {name: 'desyrel', png: 'fonts/desyrel.png', xml: 'fonts/desyrel.xml'}
+    ],
+    audios: [
+        {name: 'shoot', path: 'audios/shoot.ogg'},
+        {name: 'explode', path: 'audios/explode.ogg'}
     ]
 };

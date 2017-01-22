@@ -1,29 +1,41 @@
-
-import BasicTurret from 'objects/BasicTurret';
 import {Resources} from 'resources';
 
 class GameState extends Phaser.State {
 	preload() {
-        // IMAGES
         Resources.images
             .forEach(image => this.game.load.image(image.name, image.path));
         Resources.fonts
             .forEach(font => this.game.load.bitmapFont(font.name, font.png, font.xml));
         Resources.spriteSheets
             .forEach(sheet => this.game.load.spritesheet(sheet.name, sheet.path, sheet.width, sheet.height, sheet.frames));
+        Resources.audios
+            .forEach(audio => this.game.load.audio(audio.name, audio.path));
 	}
 
 	create() {
-        let center = { x: this.game.world.centerX, y: this.game.world.centerY };
+        this.game.audio = {};
+        const audios = Resources.audios
+            .map(audio => {
+                this.game.audio[audio.name] = this.game.add.audio(audio.name);
+                return this.game.audio[audio.name];
+            });
 
+        this.game.sound.setDecodedCallback(audios, this.setup, this);
+    }
+
+    setup() {
         this.game.gridManager.setup();
         this.game.guiManager.setup();
         this.game.waveManager.setup();
-        this.game.inputManager.setup(); 
+        this.game.inputManager.setup();
         this.game.inventoryManager.setup(20, 100);
+        this.initialized = true;
     }
 
     update() {
+	    if (!this.initialized) {
+	        return;
+        }
         this.game.inputManager.update();
         this.game.gridManager.update();
         this.game.guiManager.update();

@@ -1,4 +1,5 @@
 import PF from 'pathfinding';
+import {Colors} from 'colors';
 
 class GridManager {
     constructor(game) {
@@ -18,6 +19,7 @@ class GridManager {
 class Grid {
     constructor(game) {
         this.game = game;
+        this.graphics = this.game.add.graphics(0, 0);
         this.topLeft = {x: 100, y: 100};
         this.cellSize = 48;
 
@@ -26,7 +28,7 @@ class Grid {
 
         this.grid = createArray(this.numberRows)
             .map((row, rowIndex) => createArray(this.numberColumns)
-            .map((column, columnIndex) => new Cell(this.game, this.topLeft.x, this.topLeft.y, this.cellSize, rowIndex, columnIndex)));
+            .map((column, columnIndex) => new Cell(this.game, this.graphics, this.topLeft.x, this.topLeft.y, this.cellSize, rowIndex, columnIndex)));
     }
 
     draw() {
@@ -73,8 +75,9 @@ class Grid {
 }
 
 class Cell {
-    constructor(game, xOffset, yOffset, cellSize, row, column) {
+    constructor(game, graphics, xOffset, yOffset, cellSize, row, column) {
         this.game = game;
+        this.graphics = graphics;
         this.xOffset = xOffset;
         this.yOffset = yOffset;
         this.cellSize = cellSize;
@@ -92,11 +95,10 @@ class Cell {
     }
 
     draw() {
-        var graphics = this.game.add.graphics(0, 0);
-        let colour = this.isWalkPath ? 0x42f474 : 0xffd900;
-        graphics.lineStyle(1, colour, 1);
-        graphics.beginFill(0xffffff);
-        graphics.drawRect(this.x, this.y, this.cellSize, this.cellSize);
+        let colour = this.isWalkPath ? Colors.path : Colors.nonPath;
+        this.graphics.lineStyle(1, colour, 1);
+        this.graphics.beginFill(Colors.grid);
+        this.graphics.drawRect(this.x, this.y, this.cellSize, this.cellSize);
     }
 
     contains(x, y) {

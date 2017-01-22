@@ -16,6 +16,11 @@ class GUIManager {
         this.market.update();
         this.hud.update();
     }
+
+    destroy() {
+        this.market.destroy();
+        this.hud.destroy();
+    }
 }
 
 export default GUIManager;

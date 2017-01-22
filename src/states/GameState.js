@@ -53,6 +53,13 @@ class GameState extends Phaser.State {
         this.game.waveManager.update();
         this.game.inventoryManager.update();
     }
+
+    destroy() {
+	    this.initialized = false;
+	    this.game.waveManager.destroy();
+	    this.game.guiManager.destroy();
+	    this.game.gridManager.destroy();
+    }
 }
 
 export default GameState;

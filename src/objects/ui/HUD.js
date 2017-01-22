@@ -1,4 +1,4 @@
-import RainbowText from '../RainbowText';
+import BitmapText from '../BitmapText';
 
 class HUD extends Phaser.Group {
 
@@ -6,10 +6,9 @@ class HUD extends Phaser.Group {
         super(game, null, 'market');
         this.game = game;
 
-        this.healthView = new RainbowText(game, 0, 15, this.getHealthViewText());
-        this.coinsView = new RainbowText(game, 250, 15, this.getCoinsViewText());
-        this.add(this.healthView);
-        this.add(this.coinsView);
+        this.gameName = new BitmapText(game, 5, 5, 'Murmuring Waters TD');
+        this.healthView = new BitmapText(game, 40, 45, this.getHealthViewText());
+        this.coinsView = new BitmapText(game, 220, 45, this.getCoinsViewText());
 
         this.x = 50;
 
@@ -17,12 +16,8 @@ class HUD extends Phaser.Group {
     }
 
     update() {
-        if (this.healthView.text != this.getHealthViewText()) {
-            this.healthView.setText(this.getHealthViewText());
-        }
-        if (this.coinsView.text != this.getCoinsViewText()) {
-            this.coinsView.setText(this.getCoinsViewText());
-        }
+        this.healthView.setText(this.getHealthViewText());
+        this.coinsView.setText(this.getCoinsViewText());
     }
 
     getCoinsViewText() {

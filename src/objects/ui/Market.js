@@ -1,5 +1,6 @@
 import InventoryManager from '../../managers/InventoryManager';
-import BlockerButton from './BlockerButton'
+import BlockerButton from './BlockerButton';
+import BitmapText from '../BitmapText';
 
 class Market extends Phaser.Group {
 
@@ -15,7 +16,7 @@ class Market extends Phaser.Group {
             row += 1;
         }
 
-        this.x = this.game.world.right + 25;
+        this.x = this.game.world.right + 18;
         this.y = this.game.world.top;
 
         this.game.stage.addChild(this);

@@ -20,7 +20,7 @@ class Grid {
     constructor(game) {
         this.game = game;
         this.graphics = this.game.add.graphics(0, 0);
-        this.topLeft = {x: 100, y: 100};
+        this.topLeft = {x: 18, y: 100};
         this.cellSize = 48;
 
         this.numberRows = 10;

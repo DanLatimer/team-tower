@@ -1,12 +1,35 @@
 import MinorMinion from 'objects/MinorMinion';
 import MajorMinion from 'objects/MajorMinion';
+import SlowMinion from 'objects/SlowMinion';
 import FastMinion from 'objects/FastMinion';
+
+const Waves = [
+    {
+        numberOfMinions: 20,
+        minionType: SlowMinion,
+        waveDelay: 5 * 1000
+    },
+    {
+        numberOfMinions: 20,
+        minionType: MinorMinion,
+        waveDelay: 1 * 1000
+    },
+    {
+        numberOfMinions: 15,
+        minionType: MajorMinion,
+        waveDelay: 3 * 1000
+    },
+    {
+        numberOfMinions: 30,
+        minionType: FastMinion,
+        waveDelay: 0.25 * 1000
+    }
+];
 
 class WaveManager {
 
     constructor(game) {
         this.game = game;
-
 
         this.waveNumber = 0;
         this.timeSinceWaveStarted = new Date().getTime() + 5000;
@@ -84,23 +107,5 @@ class WaveManager {
         return (wave.numberOfMinions * wave.waveDelay) + 7000;
     }
 }
-
-const Waves = [
-    {
-        numberOfMinions: 20,
-        minionType: MinorMinion,
-        waveDelay: 1 * 1000
-    },
-    {
-        numberOfMinions: 15,
-        minionType: MajorMinion,
-        waveDelay: 3 * 1000
-    },
-    {
-        numberOfMinions: 30,
-        minionType: FastMinion,
-        waveDelay: 0.25 * 1000
-    }
-];
 
 export default WaveManager;

@@ -27,6 +27,8 @@ class GameState extends Phaser.State {
 
         const audios = Object.assign({}, this.game.audio.fx, this.game.audio.music);
         this.game.sound.setDecodedCallback(audios, this.setup, this);
+
+        this.stage.backgroundColor = "#383838";
     }
 
     setup() {

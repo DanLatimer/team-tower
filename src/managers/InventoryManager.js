@@ -44,9 +44,16 @@ class InventoryManager {
             }
 
             let cell = this.getGridCellFromPosition({x, y});
-            if (!cell) {
+            if (!cell || (cell.contents && cell.contents.key != InventoryManager.BLOCKER_TYPES.BASIC_TURRET)) {
                 this.cursorView.visible = false;
                 return;
+            }
+            if (cell.contents) {
+                let blocker = this.getBlockerView(cell.contents.key, {x: 0, y: 0}, true);
+                this.setCursor(blocker, true);
+            } else {
+                let blocker = this.getSelectedBlockerView({x: 0, y: 0}, true);
+                this.setCursor(blocker);
             }
             this.cursorView.visible = true;
             let location = cell.getCentroid();
@@ -87,15 +94,18 @@ class InventoryManager {
 
     selectBlocker(item_type) {
         this.selectedBlocker = item_type;
+        let blocker = this.getSelectedBlockerView({x: 0, y: 0}, true);
+        this.setCursor(blocker);
+    }
+
+    setCursor(blocker, purchased) {
         if (this.cursorView) {
             this.cursorView.destroy();
         }
-        let blocker = this.getSelectedBlockerView({x: 0, y: 0}, true);
         if (blocker.range) {
-            blocker = new RangedBlockerCursor(this.game, blocker);
+            blocker = new RangedBlockerCursor(this.game, blocker, purchased);
         }
         this.cursorView = blocker;
-        this.cursorView.visible = false;
     }
 
     placeBlocker() {
@@ -122,7 +132,11 @@ class InventoryManager {
     }
 
     getSelectedBlockerView(position, isCursor) {
-        switch (this.selectedBlocker) {
+        return this.getBlockerView(this.selectedBlocker, position, isCursor);
+    }
+
+    getBlockerView(type, position, isCursor) {
+            switch (type) {
             case InventoryManager.BLOCKER_TYPES.BASIC_WALL:
                 return new BasicWall(this.game, position, isCursor);
             case InventoryManager.BLOCKER_TYPES.BASIC_TURRET:

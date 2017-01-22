@@ -1,15 +1,22 @@
 
 class RangedBlockerCursor extends Phaser.Group {
 
-    constructor(game, blocker) {
+    constructor(game, blocker, purchased) {
         super(game, null, 'cursor_group');
         this.game = game;
+        this.blocker = blocker;
 
-        let graphics = this.game.add.graphics(0, 0);
-        graphics.lineStyle(1, 0xff041c, 1);
-        graphics.beginFill(0xff0044, 0.5);
-        graphics.drawCircle(blocker.centerX, blocker.centerY, (blocker.range * 2) - 30);
-        this.add(graphics);
+        this.graphics = this.game.add.graphics(0, 0);
+        let fillColor = 0xff0044;
+        let lineColor = 0xff041c;
+        if (purchased) {
+            fillColor = 0x91908B;
+            lineColor = 0x000000;
+        }
+        this.graphics.lineStyle(1, lineColor, 1);
+        this.graphics.beginFill(fillColor, 0.5);
+        this.graphics.drawCircle(blocker.centerX, blocker.centerY, (blocker.range * 2) - 30);
+        this.add(this.graphics);
         this.add(blocker);
 
         this.game.stage.addChild(this);

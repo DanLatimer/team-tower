@@ -7,7 +7,7 @@ class MajorMinion extends Minion {
         this.pixelsPerSecond = 40;
         this.rotateSpeed = 4;
         this.health = 7;
-        this.bounty = 10;
+        this.bounty = 5;
     }
 }
 

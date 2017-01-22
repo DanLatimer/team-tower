@@ -1,6 +1,5 @@
 export const Colors = {
-    grid: 0xf3f9b8,
-    nonPath: 0xc9ce98, 
-    path: 0xa54040,
+    nonPath: 0xc9ce98,
+    path: 0x34333a,
     text: 0x8d8e8d
 };

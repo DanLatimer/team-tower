@@ -19,12 +19,14 @@ class GridManager {
 class Grid {
     constructor(game) {
         this.game = game;
-        this.graphics = this.game.add.graphics(0, 0);
         this.topLeft = {x: 18, y: 100};
         this.cellSize = 48;
 
         this.numberRows = 10;
         this.numberColumns = 12;
+
+        this.game.add.tileSprite(this.topLeft.x, this.topLeft.y, this.cellSize * this.numberColumns, this.cellSize * this.numberRows, 'gridBackground');
+        this.graphics = this.game.add.graphics(0, 0);
 
         this.grid = createArray(this.numberRows)
             .map((row, rowIndex) => createArray(this.numberColumns)
@@ -96,8 +98,7 @@ class Cell {
 
     draw() {
         let colour = this.isWalkPath ? Colors.path : Colors.nonPath;
-        this.graphics.lineStyle(1, colour, 1);
-        this.graphics.beginFill(Colors.grid);
+        this.graphics.lineStyle(1, colour, 0.5);
         this.graphics.drawRect(this.x, this.y, this.cellSize, this.cellSize);
     }
 

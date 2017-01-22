@@ -7,5 +7,8 @@ export const Resources = {
         {name: 'fastMinion', path: 'images/fastMinion.png'},
         {name: 'minorMinion', path: 'images/minorMinion.png'},
         {name: 'majorMinion', path: 'images/majorMinion.png'}
+    ],
+    fonts: [
+        {name: 'desyrel', png: 'fonts/desyrel.png', xml: 'fonts/desyrel.xml'}
     ]
 };

@@ -6,7 +6,9 @@ class GameState extends Phaser.State {
 	preload() {
         // IMAGES
         Resources.images
-            .forEach(image => this. game.load.image(image.name, image.path));
+            .forEach(image => this.game.load.image(image.name, image.path));
+        Resources.fonts
+            .forEach(font => this.game.load.bitmapFont(font.name, font.png, font.xml));
 	}
 
 	create() {

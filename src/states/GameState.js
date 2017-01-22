@@ -8,18 +8,24 @@ class GameState extends Phaser.State {
             .forEach(font => this.game.load.bitmapFont(font.name, font.png, font.xml));
         Resources.spriteSheets
             .forEach(sheet => this.game.load.spritesheet(sheet.name, sheet.path, sheet.width, sheet.height, sheet.frames));
-        Resources.audios
+        Resources.audios.fx
+            .forEach(audio => this.game.load.audio(audio.name, audio.path));
+        Resources.audios.music
             .forEach(audio => this.game.load.audio(audio.name, audio.path));
 	}
 
 	create() {
-        this.game.audio = {};
-        const audios = Resources.audios
-            .map(audio => {
-                this.game.audio[audio.name] = this.game.add.audio(audio.name);
-                return this.game.audio[audio.name];
-            });
+        this.game.audio = {fx: {}, music: {}};
 
+        Resources.audios.music
+            .map(audio => this.game.add.audio(audio.name))
+            .forEach(audioGameObject => this.game.audio.music[audioGameObject.name] = audioGameObject);
+
+        Resources.audios.fx
+            .map(audio => this.game.add.audio(audio.name))
+            .forEach(audioGameObject => this.game.audio.fx[audioGameObject.name] = audioGameObject);
+
+        const audios = Object.assign({}, this.game.audio.fx, this.game.audio.music);
         this.game.sound.setDecodedCallback(audios, this.setup, this);
     }
 
@@ -31,8 +37,8 @@ class GameState extends Phaser.State {
         this.game.inventoryManager.setup(20, 100);
         this.initialized = true;
 
-        this.game.audio.ambiance.loop = true;
-        this.game.audio.ambiance.play();
+        this.game.audio.music.ambiance.loop = true;
+        this.game.audio.music.ambiance.play();
     }
 
     update() {

@@ -85,9 +85,9 @@ class WaveManager {
 
 const Waves = [
     {
-        numberOfMinions: 10,
+        numberOfMinions: 20,
         minionType: MinorMinion,
-        waveDelay: 3 * 1000
+        waveDelay: 1.5 * 1000
     },
     {
         numberOfMinions: 15,

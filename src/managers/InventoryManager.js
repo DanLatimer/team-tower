@@ -103,6 +103,9 @@ class InventoryManager {
         if (!cell) {
             return;
         }
+        if (cell.contents) {
+            return;
+        }
         let item = this.inventory[this.selectedBlocker];
         if (item.cost <= this.coins) {
             this.coins -= item.cost;

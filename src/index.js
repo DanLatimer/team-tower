@@ -4,6 +4,7 @@ import InventoryManager from 'managers/InventoryManager';
 import GUIManager from 'managers/GUIManager';
 import WaveManager from 'managers/WaveManager';
 import GameState from 'states/GameState';
+import GameOverState from 'states/GameOverState';
 
 class Game extends Phaser.Game {
 	constructor() {
@@ -16,6 +17,7 @@ class Game extends Phaser.Game {
         this.waveManager = new WaveManager(this);
 
         this.state.add('GameState', GameState, false);
+        this.state.add('GameOverState', GameOverState, false);
         this.state.start('GameState');
 	}
 

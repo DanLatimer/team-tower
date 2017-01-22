@@ -88,6 +88,8 @@ class InventoryManager {
     reduceHealth() {
         this.health -= 1;
         if (this.health <= 0) {
+            this.game.state.states['GameOverState'].win = false;
+            this.game.state.start('GameOverState');    
             console.log("You died!");
         }
     }

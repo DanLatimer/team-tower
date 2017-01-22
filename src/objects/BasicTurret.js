@@ -10,7 +10,7 @@ class BasicTurret extends Phaser.Sprite {
 		this.anchor.setTo(0.5, 0.5);
 		this.range = 150;
 		this.rateOfFire = 3000;
-		this.lastFire = Date.now();
+		this.lastFire = new Date().getTime() - this.rateOfFire;
 		this.game.stage.addChild(this);
 	}
 
@@ -30,9 +30,10 @@ class BasicTurret extends Phaser.Sprite {
         }
         let minions = this.game.waveManager.getMinions();
         nn.findMostSimilar(this, minions, [
-            {name: "x", measure: nn.comparisonMethods.number, max: this.game.world.length},
+            {name: "x", measure: nn.comparisonMethods.number, max: this.game.world.width},
             {name: "y", measure: nn.comparisonMethods.number, max: this.game.world.height}
         ], (nearestNeighbor, probability) => {
+            debugger;
             if (!nearestNeighbor) {
                 return;
             }

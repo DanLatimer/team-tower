@@ -5,9 +5,9 @@ import FastMinion from 'objects/FastMinion';
 
 const Waves = [
     {
-        numberOfMinions: 20,
+        numberOfMinions: 10,
         minionType: SlowMinion,
-        waveDelay: 5 * 1000
+        waveDelay: 3 * 1000
     },
     {
         numberOfMinions: 20,

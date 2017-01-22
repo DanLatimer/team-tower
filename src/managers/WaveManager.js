@@ -7,8 +7,9 @@ class WaveManager {
     constructor(game) {
         this.game = game;
 
+
         this.waveNumber = 0;
-        this.timeSinceWaveStarted = new Date();
+        this.timeSinceWaveStarted = new Date().getTime() + 5000;
         this.minionsToDeploy = Waves[0].numberOfMinions;
     }
 
@@ -97,13 +98,8 @@ const Waves = [
     },
     {
         numberOfMinions: 30,
-        minionType: MajorMinion,
-        waveDelay: 3 * 1000
-    },
-    {
-        numberOfMinions: 30,
         minionType: FastMinion,
-        waveDelay: 3 * 1000
+        waveDelay: 0.25 * 1000
     }
 ];
 

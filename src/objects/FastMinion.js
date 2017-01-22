@@ -6,7 +6,7 @@ class FastMinion extends Minion {
 
         this.pixelsPerSecond = 80;
         this.rotateSpeed = 10;
-        this.health = 7;
+        this.health = 2;
         this.bounty = 5;
     }
 }

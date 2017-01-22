@@ -10,8 +10,10 @@ class Market extends Phaser.Group {
 
         let types = InventoryManager.BLOCKER_TYPES;
         let row = 0;
+        this.blockerButtons = [];
         for(let type in types) {
             const blockerButton = new BlockerButton(this.game, {x: 0, y: 64 * row}, types[type]);
+            this.blockerButtons.push(blockerButton);
             this.add(blockerButton);
             const text = new BitmapText(this.game, 65, (64 * row) + 20, this.getBlockerText(type), 20);
             this.add(text.bmpText);
@@ -30,7 +32,7 @@ class Market extends Phaser.Group {
     }
 
     update() {
-        
+        this.blockerButtons.forEach(blocker => { blocker.update(); });
     }
 
 }

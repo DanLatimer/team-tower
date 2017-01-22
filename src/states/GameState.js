@@ -9,6 +9,8 @@ class GameState extends Phaser.State {
             .forEach(image => this.game.load.image(image.name, image.path));
         Resources.fonts
             .forEach(font => this.game.load.bitmapFont(font.name, font.png, font.xml));
+        Resources.spriteSheets
+            .forEach(sheet => this.game.load.spritesheet(sheet.name, sheet.path, sheet.width, sheet.height, sheet.frames));
 	}
 
 	create() {

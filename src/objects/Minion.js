@@ -1,5 +1,7 @@
+import {HealthBar} from 'objects/HealthBar';
+
 class Minion extends Phaser.Sprite {
-    constructor(game, spawn, sprite) {
+    constructor(game, spawn, sprite, health) {
         super(game, spawn.x, spawn.y, sprite);
         this.game = game;
 
@@ -9,6 +11,18 @@ class Minion extends Phaser.Sprite {
         this.x = spawn.x;
         this.y = spawn.y;
         this.lastMoved = new Date();
+        this.initialHealth = Number(health); 
+        this.health = Number(health);
+
+        this.myHealthBar = new HealthBar(this.game, {
+            x: this.x - 20, 
+            y: this.y - 20, 
+            width: this.width,
+            height: 10,
+            bar: {
+                color: '#24ad2d'
+            }
+        });
     }
 
     update() {
@@ -20,14 +34,14 @@ class Minion extends Phaser.Sprite {
         if (currentCell.equals(exitCell)) {
             console.log("MinorMinion escaped!");
             this.game.inventoryManager.reduceHealth();
-            this.game.waveManager.removeMinion(this);
+            this.kill();
             return;
         }
 
         let path = grid.findPath({row: currentCell.row, col: currentCell.column});
         if (!path) {
             console.log('MinorMinion blocked');
-            this.game.waveManager.removeMinion(this);
+            this.kill();
             return;
         }
 
@@ -46,16 +60,13 @@ class Minion extends Phaser.Sprite {
 
             if (lengthToWalk >= distanceToNextWaypoint) {
                 lengthToWalk -= distanceToNextWaypoint;
-                this.x = nextWaypoint.x;
-                this.y = nextWaypoint.y;
+                this._move(nextWaypoint.x, nextWaypoint.y);
                 nextWaypointIndex++;
             } else {
                 let percentThere = lengthToWalk / distanceToNextWaypoint;
                 let additionalX = (nextWaypoint.x - this.x) * percentThere;
                 let additionalY = (nextWaypoint.y - this.y) * percentThere;
-
-                this.x += additionalX;
-                this.y += additionalY;
+                this._move(this.x + additionalX, this.y + additionalY);
                 lengthToWalk = 0;
             }
         }
@@ -63,12 +74,25 @@ class Minion extends Phaser.Sprite {
         this.angle += this.rotateSpeed;
     }
 
+    _move(x, y) {
+        this.x = x;
+        this.y = y;
+        this.myHealthBar.setPosition(this.x, this.y - 20);
+    }
+
     hit() {
         this.health -= 1;
+        this.myHealthBar.setPercent(this.health / this.initialHealth * 100);
+
         if (this.health <= 0) {
             this.game.inventoryManager.addCoins(this.bounty);
-            this.game.waveManager.removeMinion(this);
+            this.kill();
         }
+    }
+
+    kill() {
+        this.game.waveManager.removeMinion(this);
+        this.myHealthBar.kill();
     }
 
     _getDistance(pointA, pointB) {

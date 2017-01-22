@@ -12,7 +12,9 @@ class BasicTurret extends Phaser.Sprite {
 		this.rateOfFire = 1500;
 		this.lastFire = new Date().getTime() + this.rateOfFire;
 		this.game.stage.addChild(this);
-	}
+
+        this.animations.add('fire');
+    }
 
 	update() {
 		this.attack();
@@ -44,6 +46,7 @@ class BasicTurret extends Phaser.Sprite {
             let c = Math.sqrt((a * a) + (b * b));
             if (c < this.range) {
                 this.game.audio.shoot.play();
+                this.animations.play('fire', 30);
                 this.lastFire = now;
                 nearestNeighbor.hit();
             }

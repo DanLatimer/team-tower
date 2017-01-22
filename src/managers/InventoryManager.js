@@ -13,12 +13,14 @@ class InventoryManager {
 
     static get BASIC_WALL() {
         return {
+            name: "Wall",
             cost: 5
         };
     }
 
     static get BASIC_TURRET() {
         return {
+            name: "Turret",
             cost: 15
         };
     }
@@ -98,6 +100,7 @@ class InventoryManager {
         this.selectedBlocker = item_type;
         let blocker = this.getSelectedBlockerView({x: 0, y: 0}, true);
         this.setCursor(blocker);
+        this.cursorView.visible = false;
     }
 
     setCursor(blocker, purchased) {

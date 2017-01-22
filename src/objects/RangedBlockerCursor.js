@@ -17,7 +17,7 @@ class RangedBlockerCursor extends Phaser.Group {
         this.graphics.beginFill(fillColor, 0.5);
         this.graphics.drawCircle(blocker.centerX, blocker.centerY, (blocker.range * 2) - 30);
         this.add(this.graphics);
-        this.add(blocker);
+        this.add(this.blocker);
 
         this.game.stage.addChild(this);
     }

@@ -11,8 +11,10 @@ class Market extends Phaser.Group {
         let types = InventoryManager.BLOCKER_TYPES;
         let row = 0;
         for(let type in types) {
-            let blockerButton = new BlockerButton(this.game, {x: 0, y: 64 * row}, types[type]);
+            const blockerButton = new BlockerButton(this.game, {x: 0, y: 64 * row}, types[type]);
             this.add(blockerButton);
+            const text = new BitmapText(this.game, 65, (64 * row) + 20, this.getBlockerText(type), 20);
+            this.add(text.bmpText);
             row += 1;
         }
 
@@ -20,6 +22,11 @@ class Market extends Phaser.Group {
         this.y = this.game.world.top;
 
         this.game.stage.addChild(this);
+    }
+
+    getBlockerText(type) {
+        let blockerInfo = InventoryManager[type];
+        return (blockerInfo) ? `${blockerInfo.name} ($${blockerInfo.cost})`  : "Unknown";
     }
 
     update() {

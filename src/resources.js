@@ -3,6 +3,8 @@ export const Resources = {
         {name: 'basicTurret', path: 'images/basicTurret.png'},
         {name: 'basicWall', path: 'images/basicWall.png'},
         {name: 'fastMinion', path: 'images/fastMinion.png'},
+        {name: 'slowMinion', path: 'images/slowMinion.png'},
+        {name: 'fastMinion', path: 'images/fastMinion.png'},
         {name: 'minorMinion', path: 'images/minorMinion.png'},
         {name: 'majorMinion', path: 'images/majorMinion.png'}
     ]

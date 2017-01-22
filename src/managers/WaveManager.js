@@ -82,6 +82,11 @@ class WaveManager {
         }
 
         if (this._shouldDeployMinion()) {
+            if (!this.musicPlaying) {
+                this.game.audio.themeMusic.loop = true;
+                this.game.audio.themeMusic.play();
+                this.musicPlaying = true;
+            }
             this._deployMinion(wave.minionType);
             return;
         }

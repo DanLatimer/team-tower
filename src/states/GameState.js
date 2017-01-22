@@ -30,6 +30,9 @@ class GameState extends Phaser.State {
         this.game.inputManager.setup();
         this.game.inventoryManager.setup(20, 100);
         this.initialized = true;
+
+        this.game.audio.ambiance.loop = true;
+        this.game.audio.ambiance.play();
     }
 
     update() {

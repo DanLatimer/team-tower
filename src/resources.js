@@ -18,6 +18,8 @@ export const Resources = {
     ],
     audios: [
         {name: 'shoot', path: 'audios/shoot.ogg'},
-        {name: 'explode', path: 'audios/explode.ogg'}
+        {name: 'explode', path: 'audios/explode.ogg'},
+        {name: 'ambiance', path: 'audios/ambiance.ogg'},
+        {name: 'themeMusic', path: 'audios/theme-music.wav'}
     ]
 };

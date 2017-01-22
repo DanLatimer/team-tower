@@ -93,8 +93,8 @@ class WaveManager {
 
         if (this._shouldDeployMinion()) {
             if (!this.musicPlaying) {
-                this.game.audio.themeMusic.loop = true;
-                this.game.audio.themeMusic.play();
+                this.game.audio.music.themeMusic.loop = true;
+                this.game.audio.music.themeMusic.play();
                 this.musicPlaying = true;
             }
             this._deployMinion(this._getWave().minionType);
@@ -107,17 +107,21 @@ class WaveManager {
     }
 
     selectSpeed(speed) {
+        let fxVolume = 1;
         switch(speed) {
             case WaveManager.SPEEDS.slow:
                 this.speed = 1;
                 break;
             case WaveManager.SPEEDS.medium:
                 this.speed = 2;
+                fxVolume = 0.6;
                 break;
             case WaveManager.SPEEDS.fast:
                 this.speed = 4;
+                fxVolume = 0.2;
                 break;
         }
+        Object.values(this.game.audio.fx).forEach(fx => fx.volume = fxVolume);
         this.game.gridManager.setSpeed(this.speed);
         this.minions.forEach(minion => minion.setSpeed(this.speed));
     }

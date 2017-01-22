@@ -20,10 +20,15 @@ export const Resources = {
     fonts: [
         {name: 'desyrel', png: 'fonts/desyrel.png', xml: 'fonts/desyrel.xml'}
     ],
-    audios: [
-        {name: 'shoot', path: 'audios/shoot.ogg'},
-        {name: 'explode', path: 'audios/explode.ogg'},
-        {name: 'ambiance', path: 'audios/ambiance.ogg'},
-        {name: 'themeMusic', path: 'audios/theme-music.wav'}
-    ]
+    audios: {
+        fx: [
+            {name: 'shoot', path: 'audios/shoot.ogg'},
+            {name: 'explode', path: 'audios/explode.ogg'},
+
+        ],
+        music: [
+            {name: 'ambiance', path: 'audios/ambiance.ogg'},
+            {name: 'themeMusic', path: 'audios/theme-music.wav'}
+        ]
+    }
 };

@@ -49,7 +49,7 @@ class BasicTurret extends Phaser.Sprite {
 
             let c = Math.sqrt((a * a) + (b * b));
             if (c < this.range) {
-                this.game.audio.shoot.play();
+                this.game.audio.fx.shoot.play();
                 this.animations.play('fire', 30);
                 this.lastFire = new Date();
                 nearestNeighbor.hit();

@@ -6,7 +6,7 @@ class MajorMinion extends Minion {
         super(game, spawn, 'majorMinion', health);
 
         this.pixelsPerSecond = 40;
-        this.rotateSpeed = 4;
+        this.rotateSpeed = 0;
         this.bounty = 5;
     }
 }

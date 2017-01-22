@@ -1,4 +1,5 @@
 import MinorMinion from 'objects/MinorMinion';
+import MajorMinion from 'objects/MajorMinion';
 
 class WaveManager {
 
@@ -7,7 +8,7 @@ class WaveManager {
 
         this.waveNumber = 0;
         this.timeSinceWaveStarted = new Date();
-        this.minionsToDeploy = Waves[0].minorMinions;
+        this.minionsToDeploy = Waves[0].numberOfMinions;
     }
 
     getMinions() {
@@ -35,7 +36,7 @@ class WaveManager {
         }
 
         if (this._shouldDeployMinion()) {
-            this._deployMinion();
+            this._deployMinion(wave.minionType);
             return;
         }
     }
@@ -53,7 +54,7 @@ class WaveManager {
             return false;
         }
         const wave = this._getWave();
-        const minionsDeployed = wave.minorMinions - this.minionsToDeploy;
+        const minionsDeployed = wave.numberOfMinions - this.minionsToDeploy;
 
         const elapsedTillNextMinion = wave.waveDelay * minionsDeployed;
         const elapsedMillis = this._getWaveElapsedMillis();
@@ -66,33 +67,36 @@ class WaveManager {
         }
 
         this.waveNumber++;
-        this.minionsToDeploy = this._getWave().minorMinions;
+        this.minionsToDeploy = this._getWave().numberOfMinions;
         this.timeSinceWaveStarted = new Date();
     }
 
-    _deployMinion() {
-        this.minions.push(new MinorMinion(this.game, this.initialCell.getCentroid()));
+    _deployMinion(minionType) {
+        this.minions.push(new minionType(this.game, this.initialCell.getCentroid()));
         this.minionsToDeploy--;
     }
 
     _getWaveTime() {
         const wave = this._getWave();
 
-        return (wave.minorMinions * wave.waveDelay) + 7000;
+        return (wave.numberOfMinions * wave.waveDelay) + 7000;
     }
 }
 
 const Waves = [
     {
-        minorMinions: 3,
+        numberOfMinions: 3,
+        minionType: MinorMinion,
         waveDelay: 3 * 1000
     },
     {
-        minorMinions: 3,
+        numberOfMinions: 3,
+        minionType: MajorMinion,
         waveDelay: 3 * 1000
     },
     {
-        minorMinions: 3,
+        numberOfMinions: 3,
+        minionType: MajorMinion,
         waveDelay: 3 * 1000
     }
 ];

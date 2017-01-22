@@ -95,6 +95,7 @@ class Cell {
         var graphics = this.game.add.graphics(0, 0);
         let colour = this.isWalkPath ? 0x42f474 : 0xffd900;
         graphics.lineStyle(1, colour, 1);
+        graphics.beginFill(0xffffff);
         graphics.drawRect(this.x, this.y, this.cellSize, this.cellSize);
     }
 

@@ -1,8 +1,11 @@
 import {Colors} from 'colors';
 
 class BitmapText {
-	constructor(game, x, y, text, group) {
-    	this.bmpText = game.add.bitmapText(x, y, 'desyrel', text, 32, group);
+	constructor(game, x, y, text, size, group) {
+		if (!size) {
+		    size = 32;
+        }
+    	this.bmpText = game.add.bitmapText(x, y, 'desyrel', text, size, group);
 	}
 
 	setText(text) {

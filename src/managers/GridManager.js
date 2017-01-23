@@ -8,7 +8,6 @@ class GridManager {
 
     setup() {
         this.grid = new Grid(this.game);
-        this.grid.draw();
     }
 
     update() {
@@ -45,14 +44,6 @@ class Grid {
         this.grid = createArray(this.numberRows)
             .map((row, rowIndex) => createArray(this.numberColumns)
             .map((column, columnIndex) => new Cell(this.game, this.graphics, this.topLeft.x, this.topLeft.y, this.cellSize, rowIndex, columnIndex)));
-    }
-
-    draw() {
-        let path = this.findPath({row: 0, col: 0});
-        this._getCells().forEach(cell => cell.isWalkPath = false);
-        path.forEach(pathCell => this.getCell(pathCell).isWalkPath = true);
-
-        this.grid.forEach(row => row.forEach(cell => cell.draw()));
     }
 
     getCell(cellLocationArray) {
@@ -118,12 +109,6 @@ class Cell {
 
     equals(otherCell) {
         return this.row === otherCell.row && this.column === otherCell.column;
-    }
-
-    draw() {
-        let colour = this.isWalkPath ? Colors.path : Colors.nonPath;
-        this.graphics.lineStyle(1, colour, 0.5);
-        this.graphics.drawRect(this.x, this.y, this.cellSize, this.cellSize);
     }
 
     contains(x, y) {

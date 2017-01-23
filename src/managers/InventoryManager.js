@@ -143,7 +143,6 @@ class InventoryManager {
             this.coins -= item.cost;
             let blocker = this.getSelectedBlockerView(cell.getCentroid());
             cell.contents = blocker;
-            this.game.gridManager.grid.draw();
             return true;
         }
         return false;

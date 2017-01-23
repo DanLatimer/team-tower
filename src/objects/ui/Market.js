@@ -21,7 +21,7 @@ class Market extends Phaser.Group {
         }
 
         this.x = this.game.world.right + 18;
-        this.y = this.game.world.top;
+        this.y = this.game.world.top + 100;
 
         this.game.stage.addChild(this);
     }

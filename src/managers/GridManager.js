@@ -90,6 +90,11 @@ class Grid {
         return matchingCells.length ? matchingCells[0] : null;
     }
 
+    getCellCursorIsOver() {
+        var {x, y} = this.game.input.activePointer;
+        return this.xyToGridCell(x, y);
+    }
+
     _getCells() {
         return this.grid.reduce((rowA, rowB) => rowA.concat(rowB));
     }
@@ -126,6 +131,13 @@ class Cell {
         var withinY = y >= this.y && y < this.y + this.cellSize;
 
         return withinX && withinY;
+    }
+
+    destroyContents() {
+        if (this.contents) {
+            this.contents.destroy();
+            this.contents = null;
+        }
     }
 
     getCentroid() {

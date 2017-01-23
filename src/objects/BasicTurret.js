@@ -1,7 +1,7 @@
 import nn from 'nearest-neighbor';
+import InventoryManager from 'managers/InventoryManager';
 
 class BasicTurret extends Phaser.Sprite {
-
 	constructor(game, spawn, isCursor) {
 		super(game, spawn.x, spawn.y, 'basicTurret');
 		this.game = game;
@@ -14,6 +14,11 @@ class BasicTurret extends Phaser.Sprite {
 		this.game.stage.addChild(this);
         this.speed = 1;
         this.animations.add('fire');
+        this.type = InventoryManager.BASIC_TURRET;
+
+        if (isCursor) {
+            this.alpha = 0.3;
+        }
     }
 
 	update() {
@@ -27,6 +32,10 @@ class BasicTurret extends Phaser.Sprite {
 
     setSpeed(speed) {
         this.speed = speed;
+    }
+
+    sell() {
+        this.game.inventoryManager.sell(this, this.type);
     }
 
 	attack() {

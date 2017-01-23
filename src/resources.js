@@ -7,6 +7,7 @@ export const Resources = {
         {name: 'slow', path: 'images/slow.png'},
         {name: 'medium', path: 'images/medium.png'},
         {name: 'fast', path: 'images/fast.png'},
+        {name: 'sell', path: 'images/sell.png'},
     ],
     spriteSheets: [
         {name: 'slime', path: 'images/slime.png', width: 36, height: 36, frames: 16},

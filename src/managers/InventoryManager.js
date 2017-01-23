@@ -116,6 +116,10 @@ class InventoryManager {
             this.cursorView.destroy();
         }
 
+        if (!blocker) {
+            return;
+        }
+
         const cell = this.game.gridManager.grid.getCellCursorIsOver();
         const wrappedCursorView = new RangedBlockerCursor(this.game, blocker, cell, purchased);
 

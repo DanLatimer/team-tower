@@ -59,9 +59,14 @@ class Grid {
         return this.grid[cellLocationArray[1]][cellLocationArray[0]];
     }
 
-    findPath(startLocation) {
+    findPath(startLocation, blockCells) {
         let exitCell = this.getExitCell();
-        let matrix = this._toWalkableMatrix(); 
+        let matrix = this._toWalkableMatrix();
+        if (blockCells) {
+            blockCells.forEach(cell => {
+                matrix[cell.row][cell.col] = 1;
+            })
+        }
         let grid = new PF.Grid(matrix);
         let finder = new PF.BiDijkstraFinder();//new PF.AStarFinder();
         return finder.findPath(startLocation.col, startLocation.row, exitCell.column, exitCell.row, grid);

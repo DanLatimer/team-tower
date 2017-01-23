@@ -54,6 +54,11 @@ class InventoryManager {
                 let blocker = this.getBlockerView(cell.contents.key, {x: 0, y: 0}, true);
                 this.setCursor(blocker, true);
             } else {
+                let path = this.game.gridManager.grid.findPath({row: 0, col: 0}, [{row: cell.row, col: cell.column}]);
+                if (!path.length) {
+                    this.cursorView.visible = false;
+                    return;
+                }
                 let blocker = this.getSelectedBlockerView({x: 0, y: 0}, true);
                 this.setCursor(blocker);
             }
@@ -63,21 +68,6 @@ class InventoryManager {
         });
 
         this.game.input.onUp.add(this.placeBlocker, this);
-    }
-
-    _buyBasicTurret() {
-        var {x, y} = this.game.input.activePointer;
-        console.log(`clicked ${x}, ${y}`);
-        
-        let cell = this.game.gridManager.grid.xyToGridCell(x, y);
-        if (!cell) {
-            return;
-        }
-
-        var turret = new BasicTurret(this.game, cell.getCentroid());
-        turret.setSpeed(this.game.waveManager.getSpeed());
-        cell.contents = turret;
-        this.game.gridManager.grid.draw(); 
     }
 
     update() {
@@ -125,6 +115,10 @@ class InventoryManager {
             return;
         }
         if (cell.contents) {
+            return;
+        }
+        let path = this.game.gridManager.grid.findPath({row: 0, col: 0}, [{row: cell.row, col: cell.column}]);
+        if (!path.length) {
             return;
         }
         let item = this.inventory[this.selectedBlocker];

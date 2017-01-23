@@ -91,8 +91,10 @@ class InventoryManager {
     reduceHealth() {
         this.health -= 1;
         if (this.health <= 0) {
+            this.setCursor();
+            this.game.state.states['GameState'].destroy();
             this.game.state.states['GameOverState'].win = false;
-            this.game.state.start('GameOverState');    
+            this.game.state.start('GameOverState');
             console.log("You died!");
         }
     }
@@ -107,6 +109,9 @@ class InventoryManager {
     setCursor(blocker, purchased) {
         if (this.cursorView) {
             this.cursorView.destroy();
+        }
+        if (!blocker) {
+            return;
         }
         if (blocker.range) {
             blocker = new RangedBlockerCursor(this.game, blocker, purchased);

@@ -86,6 +86,9 @@ class WaveManager {
     }
 
     update() {
+        if (this.paused) {
+            return;
+        }
         if (this._shouldStartNextWave()) {
             this._triggerNextWave();
             return;
@@ -100,6 +103,11 @@ class WaveManager {
             this._deployMinion(this._getWave().minionType);
             return;
         }
+    }
+
+    destroy() {
+        this.paused = true;
+        this.minions.forEach(minion => minion.visible = false);
     }
 
     _shouldStartNextWave() {

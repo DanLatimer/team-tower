@@ -27,6 +27,9 @@ class Minion extends Phaser.Sprite {
     }
 
     update() {
+        if (this.game.waveManager.paused) {
+            return;
+        }
         let {grid} = this.game.gridManager;
 
         let currentCell = grid.xyToGridCell(this.x, this.y);

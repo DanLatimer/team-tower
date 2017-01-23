@@ -15,6 +15,13 @@ class GridManager {
 
     }
 
+    destroy() {
+        this.grid._getCells()
+            .filter(cell => cell.contents != null)
+            .map(cell => cell.contents)
+            .forEach(tower => tower.visible = false);
+    }
+
     setSpeed(speed) {
         this.grid._getCells()
             .filter(cell => cell.contents != null)
@@ -41,7 +48,7 @@ class Grid {
     }
 
     draw() {
-        let path = this.findPath({row: 0, col: 0})
+        let path = this.findPath({row: 0, col: 0});
         this._getCells().forEach(cell => cell.isWalkPath = false);
         path.forEach(pathCell => this.getCell(pathCell).isWalkPath = true);
 

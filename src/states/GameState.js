@@ -35,7 +35,6 @@ class GameState extends Phaser.State {
         this.game.gridManager.setup();
         this.game.guiManager.setup();
         this.game.waveManager.setup();
-        this.game.inputManager.setup();
         this.game.inventoryManager.setup(20, 100);
         this.initialized = true;
 
@@ -47,11 +46,17 @@ class GameState extends Phaser.State {
 	    if (!this.initialized) {
 	        return;
         }
-        this.game.inputManager.update();
         this.game.gridManager.update();
         this.game.guiManager.update();
         this.game.waveManager.update();
         this.game.inventoryManager.update();
+    }
+
+    destroy() {
+	    this.initialized = false;
+	    this.game.waveManager.destroy();
+	    this.game.guiManager.destroy();
+	    this.game.gridManager.destroy();
     }
 }
 

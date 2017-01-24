@@ -1,5 +1,5 @@
-import BasicWall from 'objects/BasicWall';
-import BasicTurret from 'objects/BasicTurret';
+import BasicWall from 'objects/towers/BasicWall';
+import BasicTurret from 'objects/towers/BasicTurret';
 import RangedBlockerCursor from 'objects/RangedBlockerCursor';
 
 class InventoryManager {

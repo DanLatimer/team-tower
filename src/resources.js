@@ -8,6 +8,10 @@ export const Resources = {
         {name: 'medium', path: 'images/medium.png'},
         {name: 'fast', path: 'images/fast.png'},
         {name: 'sell', path: 'images/sell.png'},
+        {name: 'music_icon', path: 'images/music_icon.png'},
+        {name: 'no_music_icon', path: 'images/no_music_icon.png'},
+        {name: 'fx_icon', path: 'images/fx_icon.png'},
+        {name: 'no_fx_icon', path: 'images/no_fx_icon.png'},
     ],
     spriteSheets: [
         {name: 'slime', path: 'images/slime.png', width: 36, height: 36, frames: 16},

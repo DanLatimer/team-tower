@@ -1,26 +1,20 @@
+import Button from './Button';
 
-class BlockerButton extends Phaser.Button {
-
+class BlockerButton extends Button {
     constructor(game, position, blockerType) {
-        super(game, position.x, position.y, blockerType);
-        this.game = game;
+        super(game, position, blockerType);
+
         this.blockerType = blockerType;
-        this.onInputDown.add(this._selectBlocker, this);
         this.selected = false;
         this.alpha = 0.5;
     }
 
     update() {
-        if (this.game.inventoryManager.selectedBlocker == this.blockerType) {
-            // show selected
-            this.alpha = 1;
-        } else {
-            // show unselected
-            this.alpha = 0.5;
-        }
+        var isSelected = this.game.inventoryManager.selectedBlocker == this.blockerType;
+        this.alpha = isSelected ? 1 : 0.5; 
     }
 
-    _selectBlocker() {
+    onClick() {
         this.game.inventoryManager.selectBlocker(this.blockerType);
     }
 }

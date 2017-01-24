@@ -1,5 +1,7 @@
 import BitmapText from '../BitmapText';
 import SpeedButton from './SpeedButton';
+import FxButton from './FxButton';
+import MusicButton from './MusicButton';
 import WaveManager from '../../managers/WaveManager';
 
 class HUD extends Phaser.Group {
@@ -15,8 +17,11 @@ class HUD extends Phaser.Group {
         this.x = 50;
 
         Object.values(WaveManager.SPEEDS).forEach((speed, index) => {
-            this.add(new SpeedButton(this.game, {x: 500 + ((index * 64) + (index * 24)), y: 20}, speed));
+            this.add(new SpeedButton(this.game, {x: 350 + (index * (30 + 10)), y: 60}, speed));
         });
+
+        this.add(new FxButton(this.game, {x: 470, y: 60}));
+        this.add(new MusicButton(this.game, {x: 510, y: 60}));
 
         this.game.stage.addChild(this);
     }

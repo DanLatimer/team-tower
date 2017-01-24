@@ -1,5 +1,5 @@
-import BasicWall from 'objects/BasicWall';
-import BasicTurret from 'objects/BasicTurret';
+import BasicWall from 'objects/towers/BasicWall';
+import BasicTurret from 'objects/towers/BasicTurret';
 import RangedBlockerCursor from 'objects/RangedBlockerCursor';
 
 class InventoryManager {
@@ -128,16 +128,14 @@ class InventoryManager {
 
     placeBlocker() {
         let cell = this.getGridCellFromPosition(this.game.input.activePointer);
-        if (!cell) {
+        if (!cell || cell.contents) {
             return;
         }
-        if (cell.contents) {
+        
+        if (!this._pathExistsToExit(cell)) {
             return;
         }
-        let path = this.game.gridManager.grid.findPath({row: 0, col: 0}, [{row: cell.row, col: cell.column}]);
-        if (!path.length) {
-            return;
-        }
+
         let item = this.inventory[this.selectedBlocker];
         if (item.cost <= this.coins) {
             this.coins -= item.cost;
@@ -146,6 +144,17 @@ class InventoryManager {
             return true;
         }
         return false;
+    }
+
+    _pathExistsToExit(cell) {
+        let path = this.game.gridManager.grid.findPath({
+                row: 0, 
+                col: 0
+            }, [{
+                row: cell.row, 
+                col: cell.column
+            }]);
+        return path.length;
     }
 
     getGridCellFromPosition(position) {

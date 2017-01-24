@@ -1,38 +1,22 @@
+import Tower from './Tower';
 import nn from 'nearest-neighbor';
 import InventoryManager from 'managers/InventoryManager';
 
-class BasicTurret extends Phaser.Sprite {
+class BasicTurret extends Tower {
 	constructor(game, spawn, isCursor) {
-		super(game, spawn.x, spawn.y, 'basicTurret');
-		this.game = game;
-		this.isCursor = isCursor;
+		super(game, spawn, isCursor, 'basicTurret');
 
-		this.anchor.setTo(0.5, 0.5);
 		this.range = 150;
 		this.rateOfFire = 1500;
 		this.lastFire = new Date().getTime() + this.rateOfFire;
-		this.game.stage.addChild(this);
-        this.speed = 1;
+        
         this.animations.add('fire');
         this.type = InventoryManager.BASIC_TURRET;
-
-        if (isCursor) {
-            this.alpha = 0.3;
-        }
     }
 
 	update() {
 		this.attack();
 	}
-
-	move(x, y) {
-		this.x = x;
-		this.y = y;
-	}
-
-    setSpeed(speed) {
-        this.speed = speed;
-    }
 
     sell() {
         this.game.inventoryManager.sell(this, this.type);

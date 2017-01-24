@@ -1,8 +1,8 @@
-import MinorMinion from 'objects/MinorMinion';
-import MajorMinion from 'objects/MajorMinion';
-import SlowMinion from 'objects/SlowMinion';
-import FastMinion from 'objects/FastMinion';
-import BossMinion from 'objects/BossMinion';
+import MinorMinion from 'objects/minions/MinorMinion';
+import MajorMinion from 'objects/minions/MajorMinion';
+import SlowMinion from 'objects/minions/SlowMinion';
+import FastMinion from 'objects/minions/FastMinion';
+import BossMinion from 'objects/minions/BossMinion';
 
 const Waves = [
     {

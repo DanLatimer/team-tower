@@ -1,4 +1,4 @@
-import {HealthBar} from 'objects/HealthBar';
+import {HealthBar} from '../HealthBar';
 
 class Minion extends Phaser.Sprite {
     constructor(game, spawn, sprite, health) {

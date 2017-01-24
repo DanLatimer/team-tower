@@ -1,18 +1,16 @@
+import Button from './Button';
 
-class SpeedButton extends Phaser.Button {
-
+class SpeedButton extends Button {
     constructor(game, position, speedType) {
-        super(game, position.x, position.y, speedType);
-        this.game = game;
+        super(game, position, speedType, {x: 30, y: 30});
         this.speedType = speedType;
-        this.onInputDown.add(this._selectSpeed, this);
     }
 
     update() {
 
     }
 
-    _selectSpeed() {
+    onClick() {
         this.game.waveManager.selectSpeed(this.speedType);
     }
 }

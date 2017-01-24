@@ -1,27 +1,16 @@
+import Button from './Button';
 
-class SellButton extends Phaser.Button {
+class SellButton extends Button {
     constructor(game, position, cell) {
-        super(game, position.x, position.y, 'sell');
-        this.game = game;
+        super(game, position, 'sell', {x: 15, y:15});
         this.cell = cell;
-
-        this.onInputDown.add(this._sell, this);
-        this._setSize(15, 15);
-    }
-
-    _setSize(desiredWidth, desiredHeight) {
-        const xScale = desiredWidth / this.width;
-        const yScale = desiredHeight / this.height;
-
-        this.scale.x = xScale;
-        this.scale.y = yScale;
     }
 
     update() {
 
     }
 
-    _sell() {
+    onClick() {
         const cell = this.cell;
         const game = this.game;
 

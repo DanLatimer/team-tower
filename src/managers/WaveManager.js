@@ -129,7 +129,8 @@ class WaveManager {
                 fxVolume = 0.2;
                 break;
         }
-        Object.values(this.game.audio.fx).forEach(fx => fx.volume = fxVolume);
+        this.game.audioManager.setFxVolume(fxVolume);
+
         this.game.gridManager.setSpeed(this.speed);
         this.minions.forEach(minion => minion.setSpeed(this.speed));
     }

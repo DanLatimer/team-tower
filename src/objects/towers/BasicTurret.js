@@ -13,11 +13,11 @@ class BasicTurret extends Tower {
     }
 
     constructor(game, spawn, isCursor) {
-        super(game, spawn, isCursor, BasicTurret.sprite, 1);
+        const damage = 1;
+        const range = 150;
+        const rateOfFire = 1500;
 
-        this.range = 150;
-        this.rateOfFire = 1500;
-        this.lastFire = new Date().getTime() + this.rateOfFire;
+        super(game, spawn, isCursor, BasicTurret.sprite, damage, range, rateOfFire);
         
         this.animations.add('fire');
     }

@@ -98,7 +98,7 @@ class Minion extends Phaser.Sprite {
     }
 
     kill() {
-        this.game.audio.fx.explode.play();
+        this.game.audioManager.playSoundEffect('explode');
         this.game.waveManager.removeMinion(this);
         this.myHealthBar.kill();
     }

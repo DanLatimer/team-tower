@@ -72,6 +72,7 @@ class InventoryManager {
         this.coins -= cost;
 
         cell.contents = new this.selectedTowerClass(this.game, cell.getCentroid(), false);
+        this.game.audioManager.playSoundEffect('construction', 'build');
     }
 
     _pathExistsToExit(cell) {

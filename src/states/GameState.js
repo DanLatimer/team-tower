@@ -22,7 +22,16 @@ class GameState extends Phaser.State {
             .forEach(audioGameObject => this.game.audio.music[audioGameObject.name] = audioGameObject);
 
         Resources.audios.fx
-            .map(audio => this.game.add.audio(audio.name))
+            .map(audio => {
+                const audioHandle = this.game.add.audio(audio.name);
+
+                if (audio.marker) {
+                    const {name, start, duration} = audio.marker;
+                    audioHandle.addMarker(name, start, duration);
+                }
+
+                return audioHandle;
+            })
             .forEach(audioGameObject => this.game.audio.fx[audioGameObject.name] = audioGameObject);
 
         const audios = Object.assign({}, this.game.audio.fx, this.game.audio.music);

@@ -11,20 +11,20 @@ class Tower extends Phaser.Sprite {
         throw {name : "NotImplementedError", message : "subclass must define this"};
     }
 
-    constructor(game, spawn, isCursor, sprite, damage) {
+    constructor(game, spawn, isCursor, sprite, damage, range, rateOfFire) {
         super(game, spawn.x, spawn.y, sprite);
         this.game = game;
         this.isCursor = isCursor;
         this.damage = damage;
+        this.range = range;
+        this.rateOfFire = rateOfFire;
+
         this.speed = 1;
+        this.lastFire = new Date().getTime() + 1500;
+        this.alpha = isCursor ? 0.3 : 1;
 
         this.anchor.setTo(0.5, 0.5);
-
-        if (isCursor) {
-            this.alpha = 0.3;
-        }
-
-        this.game.stage.addChild(this);
+        this.game.stage.addChild(this); 
     }
 
     update() {
@@ -49,14 +49,15 @@ class Tower extends Phaser.Sprite {
             return;
         }
 
-        this.findNearestMinion((nearestMinion, distance) => {
+        this._findNearestMinion((nearestMinion, distance) => {
             if (distance > this.range) {
                 return;
             }
 
-            this.game.audio.fx.shoot.play();
+            this.game.audioManager.playSoundEffect('shoot');
             this.animations.play('fire', 30);
             this.lastFire = new Date();
+
             nearestMinion.hit(this.damage);
         });
     }
@@ -70,7 +71,7 @@ class Tower extends Phaser.Sprite {
         return elapsedTimeSinceLastFire > (this.rateOfFire / this.speed);
     }
 
-    findNearestMinion(callback) {
+    _findNearestMinion(callback) {
         const comparators = [
             {name: "x", measure: nn.comparisonMethods.number, max: this.game.world.width},
             {name: "y", measure: nn.comparisonMethods.number, max: this.game.world.height}

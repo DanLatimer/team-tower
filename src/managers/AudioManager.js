@@ -23,6 +23,10 @@ class AudioManager {
 
     }
 
+    playSoundEffect(name, marker) {
+        this.game.audio.fx[name].play(marker);
+    }
+
     setMusicVolume(volume) {
         this.currentMusicVolume = volume;
         this._updateMusicVolume();

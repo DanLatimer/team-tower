@@ -1,7 +1,7 @@
 import {Resources} from 'resources';
 
 class GameState extends Phaser.State {
-	preload() {
+    preload() {
         Resources.images
             .forEach(image => this.game.load.image(image.name, image.path));
         Resources.fonts
@@ -12,9 +12,9 @@ class GameState extends Phaser.State {
             .forEach(audio => this.game.load.audio(audio.name, audio.path));
         Resources.audios.music
             .forEach(audio => this.game.load.audio(audio.name, audio.path));
-	}
+    }
 
-	create() {
+    create() {
         this.game.audio = {fx: {}, music: {}};
 
         Resources.audios.music
@@ -22,7 +22,16 @@ class GameState extends Phaser.State {
             .forEach(audioGameObject => this.game.audio.music[audioGameObject.name] = audioGameObject);
 
         Resources.audios.fx
-            .map(audio => this.game.add.audio(audio.name))
+            .map(audio => {
+                const audioHandle = this.game.add.audio(audio.name);
+
+                if (audio.marker) {
+                    const {name, start, duration} = audio.marker;
+                    audioHandle.addMarker(name, start, duration);
+                }
+
+                return audioHandle;
+            })
             .forEach(audioGameObject => this.game.audio.fx[audioGameObject.name] = audioGameObject);
 
         const audios = Object.assign({}, this.game.audio.fx, this.game.audio.music);
@@ -36,6 +45,7 @@ class GameState extends Phaser.State {
         this.game.guiManager.setup();
         this.game.waveManager.setup();
         this.game.inventoryManager.setup(20, 100);
+        this.game.cursorManager.setup();
         this.initialized = true;
 
         this.game.audio.music.ambiance.loop = true;
@@ -43,8 +53,8 @@ class GameState extends Phaser.State {
     }
 
     update() {
-	    if (!this.initialized) {
-	        return;
+        if (!this.initialized) {
+            return;
         }
         this.game.gridManager.update();
         this.game.guiManager.update();
@@ -53,10 +63,10 @@ class GameState extends Phaser.State {
     }
 
     destroy() {
-	    this.initialized = false;
-	    this.game.waveManager.destroy();
-	    this.game.guiManager.destroy();
-	    this.game.gridManager.destroy();
+        this.initialized = false;
+        this.game.waveManager.destroy();
+        this.game.guiManager.destroy();
+        this.game.gridManager.destroy();
     }
 }
 

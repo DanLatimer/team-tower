@@ -29,7 +29,7 @@ export const Resources = {
         fx: [
             {name: 'shoot', path: 'audios/shoot.ogg'},
             {name: 'explode', path: 'audios/explode.ogg'},
-
+            {name: 'construction', path: 'audios/construction.mp3', marker: {name:'build', start: 0, duration: 1.5}}
         ],
         music: [
             {name: 'ambiance', path: 'audios/ambiance.ogg'},

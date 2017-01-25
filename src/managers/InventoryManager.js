@@ -60,7 +60,7 @@ class InventoryManager {
             return;
         }
         
-        if (!this._pathExistsToExit(cell)) {
+        if (!this.canPurchaseSelected(cell)) {
             return;
         }
 
@@ -75,19 +75,13 @@ class InventoryManager {
         this.game.audioManager.playSoundEffect('construction', 'build');
     }
 
-    _pathExistsToExit(cell) {
-        let path = this.game.gridManager.grid.findPath({
-                row: 0, 
-                col: 0
-            }, [{
-                row: cell.row, 
-                col: cell.column
-            }]);
-        return path.length;
-    }
-
     canPurchaseSelected(cell) {
-        const path = this.game.gridManager.grid.findPath({row: 0, col: 0}, [{row: cell.row, col: cell.column}]);
+        const path = this.game.gridManager.grid.findPath(
+            {row: 0, col: 0},
+            [
+                {row: cell.row, col: cell.column}
+            ]
+        );
         return path.length;
     }
 }

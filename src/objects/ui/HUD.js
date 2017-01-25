@@ -1,7 +1,7 @@
 import BitmapText from '../BitmapText';
-import SpeedButton from './SpeedButton';
-import FxButton from './FxButton';
-import MusicButton from './MusicButton';
+import SpeedButton from './buttons/SpeedButton';
+import FxButton from './buttons/FxButton';
+import MusicButton from './buttons/MusicButton';
 import WaveManager from '../../managers/WaveManager';
 
 class HUD extends Phaser.Group {

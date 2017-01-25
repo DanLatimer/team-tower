@@ -1,5 +1,5 @@
 import {Colors} from 'colors';
-import SellButton from 'objects/ui/SellButton';
+import SellButton from 'objects/ui/buttons/SellButton';
 
 class RangedBlockerCursor extends Phaser.Group {
 

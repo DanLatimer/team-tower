@@ -1,7 +1,7 @@
 import {Resources} from 'resources';
 
 class GameState extends Phaser.State {
-	preload() {
+    preload() {
         Resources.images
             .forEach(image => this.game.load.image(image.name, image.path));
         Resources.fonts
@@ -12,9 +12,9 @@ class GameState extends Phaser.State {
             .forEach(audio => this.game.load.audio(audio.name, audio.path));
         Resources.audios.music
             .forEach(audio => this.game.load.audio(audio.name, audio.path));
-	}
+    }
 
-	create() {
+    create() {
         this.game.audio = {fx: {}, music: {}};
 
         Resources.audios.music
@@ -44,8 +44,8 @@ class GameState extends Phaser.State {
     }
 
     update() {
-	    if (!this.initialized) {
-	        return;
+        if (!this.initialized) {
+            return;
         }
         this.game.gridManager.update();
         this.game.guiManager.update();
@@ -54,10 +54,10 @@ class GameState extends Phaser.State {
     }
 
     destroy() {
-	    this.initialized = false;
-	    this.game.waveManager.destroy();
-	    this.game.guiManager.destroy();
-	    this.game.gridManager.destroy();
+        this.initialized = false;
+        this.game.waveManager.destroy();
+        this.game.guiManager.destroy();
+        this.game.gridManager.destroy();
     }
 }
 

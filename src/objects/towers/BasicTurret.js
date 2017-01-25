@@ -13,21 +13,21 @@ class BasicTurret extends Tower {
         return 'Turret';
     }
 
-	constructor(game, spawn, isCursor) {
-		super(game, spawn, isCursor, BasicTurret.sprite);
+    constructor(game, spawn, isCursor) {
+        super(game, spawn, isCursor, BasicTurret.sprite);
 
-		this.range = 150;
-		this.rateOfFire = 1500;
-		this.lastFire = new Date().getTime() + this.rateOfFire;
+        this.range = 150;
+        this.rateOfFire = 1500;
+        this.lastFire = new Date().getTime() + this.rateOfFire;
         
         this.animations.add('fire');
     }
 
-	update() {
-		this.attack();
-	}
+    update() {
+        this.attack();
+    }
 
-	attack() {
+    attack() {
         const now = Date.now();
         if (!this._shouldFire()) {
             return;
@@ -53,7 +53,7 @@ class BasicTurret extends Tower {
                 nearestNeighbor.hit();
             }
         });
-	}
+    }
 
     _shouldFire() {
         if (this.isCursor) {

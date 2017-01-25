@@ -24,7 +24,7 @@ class CursorManager {
         let cell = this.game.gridManager.grid.xyToGridCell(x, y);
         const isWithinGrid = Boolean(cell);
         if (!isWithinGrid) {
-        	this._setVisibility(false);
+            this._setVisibility(false);
             return;
         }
 
@@ -34,59 +34,59 @@ class CursorManager {
         this.cursorCellContent = cell.contents;
 
         if (cell.contents) {
-        	this._setCursorToCellContentsInfo(cell);
-        	return;
+            this._setCursorToCellContentsInfo(cell);
+            return;
         } 
 
-    	if (!this.game.inventoryManager.canPurchaseSelected(cell)) {
-        	this._setVisibility(false);
+        if (!this.game.inventoryManager.canPurchaseSelected(cell)) {
+            this._setVisibility(false);
             return;
-    	}
+        }
 
-    	this._setCursorToSelectedTowerForPurchase(cell);
+        this._setCursorToSelectedTowerForPurchase(cell);
     }
 
     _setVisibility(visible) {
-    	if (!this.cursor) {
-    		return;
-    	}
+        if (!this.cursor) {
+            return;
+        }
 
-    	this.cursor.visible = visible;
+        this.cursor.visible = visible;
     }
 
     updateCursor() {
-		const {x, y} = this.game.input.activePointer;
-		this._onCursorMove(null, x, y);
+        const {x, y} = this.game.input.activePointer;
+        this._onCursorMove(null, x, y);
     }
 
     _setCursorToCellContentsInfo(cell) {
-    	const towerCursor = new cell.contents.constructor(this.game, {x: 0, y: 0}, false);
+        const towerCursor = new cell.contents.constructor(this.game, {x: 0, y: 0}, false);
 
         this.setCursor(new RangedBlockerCursor(this.game, towerCursor, cell, true));
-        this._updateCursorLocation();    	
+        this._updateCursorLocation();        
     }
 
     _isCursorAlreadyRendered(cell) {
-		return this.cursorCellContent === cell.contents && cell.contents !== null;
+        return this.cursorCellContent === cell.contents && cell.contents !== null;
     }
 
     _setCursorToSelectedTowerForPurchase(cell) {
-    	const towerClass = this.game.inventoryManager.getSelectedTowerClass();
-    	const towerCursor = new towerClass(this.game, {x: 0, y: 0}, true); 
+        const towerClass = this.game.inventoryManager.getSelectedTowerClass();
+        const towerCursor = new towerClass(this.game, {x: 0, y: 0}, true); 
 
-		this.setCursor(new RangedBlockerCursor(this.game, towerCursor, cell, false));
-		this._updateCursorLocation();
+        this.setCursor(new RangedBlockerCursor(this.game, towerCursor, cell, false));
+        this._updateCursorLocation();
     }
 
     _updateCursorLocation() {
-    	if (!this.cursor) {
-    		return;
-    	}
+        if (!this.cursor) {
+            return;
+        }
 
-    	const cell = this.game.gridManager.grid.getCellCursorIsOver();
-    	if (!cell) {
-    		return;
-    	}
+        const cell = this.game.gridManager.grid.getCellCursorIsOver();
+        if (!cell) {
+            return;
+        }
 
         this._setVisibility(true);
         let location = cell.getCentroid();
@@ -100,7 +100,7 @@ class CursorManager {
         }
 
         if (!cursor) {
-        	this.cursor = null;
+            this.cursor = null;
             return;
         }
 
@@ -108,7 +108,7 @@ class CursorManager {
     }
 
     clearCursor() {
-    	this.setCursor();
+        this.setCursor();
     }
 }
 

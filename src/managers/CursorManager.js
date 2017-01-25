@@ -20,7 +20,9 @@ class CursorManager {
 
     }
 
-    _onCursorMove(_, x, y) {
+    _onCursorMove(pointer, x, y) {
+        if (!pointer || !pointer.withinGame) { return; }
+
         let cell = this.game.gridManager.grid.xyToGridCell(x, y);
         const isWithinGrid = Boolean(cell);
         if (!isWithinGrid) {

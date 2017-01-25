@@ -1,4 +1,14 @@
 class Tower extends Phaser.Sprite {
+    static get cost() {
+        throw {name : "NotImplementedError", message : "subclass must define this"}; 
+    }
+    static get sprite() {
+        throw {name : "NotImplementedError", message : "subclass must define this"};
+    }
+    static get name() {
+        throw {name : "NotImplementedError", message : "subclass must define this"};
+    }
+
     constructor(game, spawn, isCursor, sprite) {
         super(game, spawn.x, spawn.y, sprite);
         this.game = game;

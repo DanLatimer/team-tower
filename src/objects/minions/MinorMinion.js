@@ -9,7 +9,6 @@ class MinorMinion extends Minion {
         this.animations.play('walk', 50, true);
 
         this.pixelsPerSecond = 40;
-        this.rotateSpeed = 0;
         this.bounty = 3;
     }
 }

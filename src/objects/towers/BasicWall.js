@@ -20,7 +20,6 @@ class BasicWall extends Tower {
         super(game, spawn, isCursor, BasicWall.sprite, damage, );
 
         this.range = 0;
-        this.rotateSpeed = 3;
     }
 
     update() {

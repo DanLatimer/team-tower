@@ -73,8 +73,6 @@ class Minion extends Phaser.Sprite {
                 lengthToWalk = 0;
             }
         }
-
-        this.angle += this.rotateSpeed;
     }
 
     setSpeed(speed) {

@@ -9,7 +9,6 @@ class FastMinion extends Minion {
         this.animations.play('walk', 50, true);
 
         this.pixelsPerSecond = 80;
-        this.rotateSpeed = 0;
         this.health = 2;
         this.bounty = 5;
     }

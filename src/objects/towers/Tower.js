@@ -1,11 +1,11 @@
 class Tower extends Phaser.Sprite {
     constructor(game, spawn, isCursor, sprite) {
         super(game, spawn.x, spawn.y, sprite);
-           this.game = game;
+        this.game = game;
         this.isCursor = isCursor;
         this.speed = 1;
 
-           this.anchor.setTo(0.5, 0.5);
+        this.anchor.setTo(0.5, 0.5);
 
         if (isCursor) {
             this.alpha = 0.3;

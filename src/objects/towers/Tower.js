@@ -1,5 +1,3 @@
-
-
 class Tower extends Phaser.Sprite {
     constructor(game, spawn, isCursor, sprite) {
         super(game, spawn.x, spawn.y, sprite);
@@ -27,6 +25,11 @@ class Tower extends Phaser.Sprite {
 
 	setSpeed(speed) {
         this.speed = speed;
+    }
+
+    sell() {
+        debugger;
+        this.game.inventoryManager.sell(this.constructor.cost);
     }
 }
 

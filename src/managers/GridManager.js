@@ -80,6 +80,10 @@ class Grid {
 
         return matchingCells.length ? matchingCells[0] : null;
     }
+    
+    positionToGridCell({x, y}) {
+        return this.xyToGridCell(x, y);
+    }
 
     getCellCursorIsOver() {
         var {x, y} = this.game.input.activePointer;

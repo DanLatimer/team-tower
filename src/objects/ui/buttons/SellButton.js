@@ -18,7 +18,7 @@ class SellButton extends Button {
             if (cell.contents === null || cell.contents === undefined) {
                 return;
             }
-            game.inventoryManager.sell(cell.contents);
+            cell.contents.sell();
             cell.destroyContents();
         }, 500);
     }

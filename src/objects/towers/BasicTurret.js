@@ -3,24 +3,29 @@ import nn from 'nearest-neighbor';
 import InventoryManager from 'managers/InventoryManager';
 
 class BasicTurret extends Tower {
+    static get cost() {
+        return 15;
+    }
+    static get sprite() {
+        return 'basicTurret';
+    }
+    static get name() {
+        return 'Turret';
+    }
+
 	constructor(game, spawn, isCursor) {
-		super(game, spawn, isCursor, 'basicTurret');
+		super(game, spawn, isCursor, BasicTurret.sprite);
 
 		this.range = 150;
 		this.rateOfFire = 1500;
 		this.lastFire = new Date().getTime() + this.rateOfFire;
         
         this.animations.add('fire');
-        this.type = InventoryManager.BASIC_TURRET;
     }
 
 	update() {
 		this.attack();
 	}
-
-    sell() {
-        this.game.inventoryManager.sell(this, this.type);
-    }
 
 	attack() {
         const now = Date.now();

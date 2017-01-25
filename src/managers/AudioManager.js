@@ -24,7 +24,7 @@ class AudioManager {
     }
 
     playSoundEffect(name, marker) {
-        this.game.audio.fx[name].play(marker);
+        this.game.audio.fx[name].play(marker, 0, this._getFxVolume());
     }
 
     setMusicVolume(volume) {
@@ -54,7 +54,11 @@ class AudioManager {
 
     _updateFxVolume() {
         Object.values(this.game.audio.fx)
-            .forEach(fx => fx.volume = this.isFxMuted ? 0 : this.currentFxVolume);
+            .forEach(fx => fx.volume = this._getFxVolume());
+    }
+
+    _getFxVolume() {
+        return this.isFxMuted ? 0 : this.currentFxVolume;
     }
 }
 

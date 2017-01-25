@@ -15,7 +15,7 @@ class GameState extends Phaser.State {
     }
 
     create() {
-        this.game.audio = {fx: {}, music: {}};
+        this.game.audio = {fx: {}, music: {}, markers: {}};
 
         Resources.audios.music
             .map(audio => this.game.add.audio(audio.name))
@@ -27,7 +27,8 @@ class GameState extends Phaser.State {
 
                 if (audio.marker) {
                     const {name, start, duration} = audio.marker;
-                    audioHandle.addMarker(name, start, duration);
+                    const markerHandle = audioHandle.addMarker(name, start, duration);
+                    this.game.audio.markers[name] = markerHandle;
                 }
 
                 return audioHandle;

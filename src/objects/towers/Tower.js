@@ -28,7 +28,7 @@ class Tower extends Phaser.Sprite {
     }
 
     update() {
-        super.update(...arguments);
+        this.attack();
     }
 
     move(x, y) {

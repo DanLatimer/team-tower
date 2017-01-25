@@ -21,10 +21,6 @@ class BasicTurret extends Tower {
         
         this.animations.add('fire');
     }
-
-    update() {
-        this.attack();
-    }
 }
 
 export default BasicTurret;

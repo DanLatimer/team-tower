@@ -21,10 +21,6 @@ class BasicWall extends Tower {
 
         this.range = 0;
     }
-
-    update() {
-
-    }
 }
 
 export default BasicWall;

@@ -14,8 +14,8 @@ class BasicWall extends Tower {
 
     constructor(game, spawn, isCursor) {
         const damage = 0;
-        const range = 150;
-        const rateOfFire = 1500;
+        const range = 0;
+        const rateOfFire = 0;
 
         super(game, spawn, isCursor, BasicWall.sprite, damage, range, rateOfFire);
 

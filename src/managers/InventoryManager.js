@@ -1,6 +1,10 @@
 import BasicWall from 'objects/towers/BasicWall';
 import BasicTurret from 'objects/towers/BasicTurret';
 
+const Inventory = [
+    {}
+];
+
 class InventoryManager {
 
     static get Inventory() {

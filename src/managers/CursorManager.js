@@ -62,7 +62,7 @@ class CursorManager {
     }
 
     _setCursorToCellContentsInfo(cell) {
-        const towerCursor = new cell.contents.constructor(this.game, {x: 0, y: 0}, false);
+        const towerCursor = new cell.contents.inventoryItem.build(this.game, {x: 0, y: 0}, false);
 
         this.setCursor(new RangedBlockerCursor(this.game, towerCursor, cell, true));
         this._updateCursorLocation();        
@@ -73,8 +73,8 @@ class CursorManager {
     }
 
     _setCursorToSelectedTowerForPurchase(cell) {
-        const towerClass = this.game.inventoryManager.getSelectedTowerClass();
-        const towerCursor = new towerClass(this.game, {x: 0, y: 0}, true); 
+        const inventoryItem = this.game.inventoryManager.getSelectedInventoryItem();
+        const towerCursor = inventoryItem.build(this.game, {x: 0, y: 0}, true); 
 
         this.setCursor(new RangedBlockerCursor(this.game, towerCursor, cell, false));
         this._updateCursorLocation();

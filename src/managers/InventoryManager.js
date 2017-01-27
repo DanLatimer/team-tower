@@ -1,14 +1,28 @@
-import BasicWall from 'objects/towers/BasicWall';
-import BasicTurret from 'objects/towers/BasicTurret';
+import Tower from 'objects/towers/Tower';
 
-const Inventory = [
-    {}
-];
+class InventoryItem {
+    constructor(name, sprite, isAnimated, cost, range = 0, rateOfFire = 0, damage = 0) {
+        this.name = name;
+        this.sprite = sprite;
+        this.cost = cost;
+        this.range = range;
+        this.rateOfFire = rateOfFire;
+        this.damage = damage;
+        this.isAnimated = isAnimated;
+    }
+
+    build(game, position, isCursor) {
+        return new Tower(game, position, isCursor, this);
+    }
+}
 
 class InventoryManager {
 
     static get Inventory() {
-        return [BasicTurret, BasicWall];
+        return [
+            new InventoryItem('Wall', 'basicWall', false, 5),
+            new InventoryItem('Turret', 'basicTurret', true, 15, 150, 2500, 1)
+        ];
     };
 
     constructor(game) {
@@ -19,7 +33,7 @@ class InventoryManager {
         this.health = initialHealth;
         this.coins = initialCoins;
 
-        this.selectTower(BasicWall);
+        this.selectTower(InventoryManager.Inventory[0]);
 
         this.game.input.onUp.add(this.purchaseSelected, this);
     }
@@ -47,13 +61,13 @@ class InventoryManager {
         }
     }
 
-    selectTower(towerClass) {
-        this.selectedTowerClass = towerClass;
+    selectTower(inventoryItem) {
+        this.selectedinventoryItem = inventoryItem;
         this.game.cursorManager.updateCursor();        
     }
 
-    getSelectedTowerClass() {
-        return this.selectedTowerClass;
+    getSelectedInventoryItem() {
+        return this.selectedinventoryItem;
     }
 
     purchaseSelected(pointer) {
@@ -68,14 +82,15 @@ class InventoryManager {
             return;
         }
 
-        var cost = this.selectedTowerClass.cost;
+        var cost = this.selectedinventoryItem.cost;
         if (cost > this.coins) {
             return;
         }
 
         this.coins -= cost;
 
-        cell.contents = new this.selectedTowerClass(this.game, cell.getCentroid(), false);
+        cell.contents = this.selectedinventoryItem.build(this.game, cell.getCentroid(), false);
+
         this.game.audioManager.playSoundEffect('construction', 'build');
     }
 

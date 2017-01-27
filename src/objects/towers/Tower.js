@@ -1,28 +1,26 @@
 import nn from 'nearest-neighbor';
 
 class Tower extends Phaser.Sprite {
-    static get cost() {
-        throw {name : "NotImplementedError", message : "subclass must define this"}; 
-    }
-    static get sprite() {
-        throw {name : "NotImplementedError", message : "subclass must define this"};
-    }
-    static get name() {
-        throw {name : "NotImplementedError", message : "subclass must define this"};
-    }
-
-    constructor(game, spawn, isCursor, sprite, damage, range, rateOfFire) {
-        super(game, spawn.x, spawn.y, sprite);
+    constructor(game, spawn, isCursor, inventoryItem) {
+        super(game, spawn.x, spawn.y, inventoryItem.sprite);
         this.game = game;
         this.isCursor = isCursor;
-        this.damage = damage;
-        this.range = range;
-        this.rateOfFire = rateOfFire;
+        this.inventoryItem = inventoryItem;
+        this.damage = inventoryItem.damage;
+        this.range = inventoryItem.range;
+        this.rateOfFire = inventoryItem.rateOfFire;
+        this.cost = inventoryItem.cost;
+        this.name = inventoryItem.name;
+        this.isAnimated = inventoryItem.isAnimated;
 
         this.speed = 1;
         this.lastFire = new Date().getTime() + 1500;
         this.alpha = isCursor ? 0.3 : 1;
 
+        if (this.isAnimated) {
+            this.animations.add('fire');    
+        }
+        
         this.anchor.setTo(0.5, 0.5);
         this.game.stage.addChild(this); 
     }
@@ -41,7 +39,7 @@ class Tower extends Phaser.Sprite {
     }
 
     sell() {
-        this.game.inventoryManager.sell(this.constructor.cost);
+        this.game.inventoryManager.sell(this.inventoryItem.cost);
     }
 
     attack() {
@@ -50,12 +48,14 @@ class Tower extends Phaser.Sprite {
         }
 
         this._findNearestMinion((nearestMinion, distance) => {
-            if (distance > this.range) {
+            if (!this._shouldFire() || distance > this.range) {
                 return;
             }
 
             this.game.audioManager.playSoundEffect('shoot');
-            this.animations.play('fire', 30);
+            if (this.isAnimated) {
+                this.animations.play('fire', 30);    
+            }
             this.lastFire = new Date();
 
             nearestMinion.hit(this.damage);

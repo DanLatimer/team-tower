@@ -1,21 +1,8 @@
 import {Resources} from 'resources';
 
 class GameState extends Phaser.State {
-    preload() {
-        Resources.images
-            .forEach(image => this.game.load.image(image.name, image.path));
-        Resources.fonts
-            .forEach(font => this.game.load.bitmapFont(font.name, font.png, font.xml));
-        Resources.spriteSheets
-            .forEach(sheet => this.game.load.spritesheet(sheet.name, sheet.path, sheet.width, sheet.height, sheet.frames));
-        Resources.audios.fx
-            .forEach(audio => this.game.load.audio(audio.name, audio.path));
-        Resources.audios.music
-            .forEach(audio => this.game.load.audio(audio.name, audio.path));
-    }
-
     create() {
-        this.game.audio = {fx: {}, music: {}, markers: {}};
+        this.game.audio = {fx: {}, music: {}};
 
         Resources.audios.music
             .map(audio => this.game.add.audio(audio.name))
@@ -28,7 +15,6 @@ class GameState extends Phaser.State {
                 if (audio.marker) {
                     const {name, start, duration} = audio.marker;
                     const markerHandle = audioHandle.addMarker(name, start, duration);
-                    this.game.audio.markers[name] = markerHandle;
                 }
 
                 return audioHandle;

@@ -15,7 +15,7 @@ class BasicTurret extends Tower {
     constructor(game, spawn, isCursor) {
         const damage = 1;
         const range = 150;
-        const rateOfFire = 1500;
+        const rateOfFire = 2500;
 
         super(game, spawn, isCursor, BasicTurret.sprite, damage, range, rateOfFire);
         

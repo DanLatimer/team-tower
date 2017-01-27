@@ -4,46 +4,101 @@ import SlowMinion from 'objects/minions/SlowMinion';
 import FastMinion from 'objects/minions/FastMinion';
 import BossMinion from 'objects/minions/BossMinion';
 
-const Waves = [
+export const Difficulties = [
     {
-        numberOfMinions: 10,
-        minionType: SlowMinion,
-        waveDelay: 3 * 1000
+        name: 'easy',
+        waves : [
+            {
+                numberOfMinions: 10,
+                minionType: SlowMinion,
+                waveDelay: 3 * 1000
+            },
+            {
+                numberOfMinions: 20,
+                minionType: MinorMinion,
+                waveDelay: 1 * 1000
+            },
+            {
+                numberOfMinions: 15,
+                minionType: MajorMinion,
+                waveDelay: 3 * 1000
+            },
+            {
+                numberOfMinions: 1,
+                minionType: BossMinion,
+                waveDelay: 15 * 1000
+            },
+            {
+                numberOfMinions: 30,
+                minionType: FastMinion,
+                waveDelay: 0.25 * 1000
+            },
+            {
+                numberOfMinions: 20,
+                minionType: MinorMinion,
+                waveDelay: 0.5 * 1000
+            },
+            {
+                numberOfMinions: 15,
+                minionType: MajorMinion,
+                waveDelay: 1.5 * 1000
+            },
+            {
+                numberOfMinions: 3,
+                minionType: BossMinion,
+                waveDelay: 3 * 1000
+            }
+        ]
     },
     {
-        numberOfMinions: 20,
-        minionType: MinorMinion,
-        waveDelay: 1 * 1000
-    },
-    {
-        numberOfMinions: 15,
-        minionType: MajorMinion,
-        waveDelay: 3 * 1000
-    },
-    {
-        numberOfMinions: 1,
-        minionType: BossMinion,
-        waveDelay: 15 * 1000
-    },
-    {
-        numberOfMinions: 30,
-        minionType: FastMinion,
-        waveDelay: 0.25 * 1000
-    },
-    {
-        numberOfMinions: 20,
-        minionType: MinorMinion,
-        waveDelay: 0.5 * 1000
-    },
-    {
-        numberOfMinions: 15,
-        minionType: MajorMinion,
-        waveDelay: 1.5 * 1000
-    },
-    {
-        numberOfMinions: 3,
-        minionType: BossMinion,
-        waveDelay: 3 * 1000
+        name: 'medium',
+        waves : [
+            {
+                numberOfMinions: 5,
+                minionType: SlowMinion,
+                waveDelay: 2 * 1000
+            },
+            {
+                numberOfMinions: 10,
+                minionType: MinorMinion,
+                waveDelay: 1 * 1000
+            },
+            {
+                numberOfMinions: 10,
+                minionType: MajorMinion,
+                waveDelay: 3 * 1000
+            },
+            {
+                numberOfMinions: 30,
+                minionType: FastMinion,
+                waveDelay: 0.25 * 1000
+            },
+            {
+                numberOfMinions: 3,
+                minionType: BossMinion,
+                waveDelay: 15 * 1000
+            },
+            {
+                numberOfMinions: 40,
+                minionType: FastMinion,
+                waveDelay: 0.25 * 1000
+            },
+            {
+                numberOfMinions: 20,
+                minionType: MinorMinion,
+                waveDelay: 0.5 * 1000
+            },
+            {
+                numberOfMinions: 15,
+                minionType: MajorMinion,
+                waveDelay: 1.5 * 1000
+            },
+            {
+                numberOfMinions: 10,
+                minionType: BossMinion,
+                waveDelay: 3 * 1000
+            }
+        ]
     }
 ];
 
@@ -62,8 +117,8 @@ class WaveManager {
 
         this.waveNumber = 0;
         this.timeSinceMinionDeployed = new Date().getTime() + 5000;
-        this.minionsToDeploy = Waves[0].numberOfMinions;
         this.speed = 1;
+        this.selectedDifficulty = null;
     }
 
     getSpeed() {
@@ -74,9 +129,9 @@ class WaveManager {
         return this.minions;
     }
 
-    removeMinion(minion) {
-        this.minions = this.minions.filter((m) => { return (m != minion) });
-        minion.destroy();
+    removeMinion(minionToRemove) {
+        this.minions = this.minions.filter(minion => minion != minionToRemove);
+        minionToRemove.destroy();
     }
 
     setup() {
@@ -85,8 +140,13 @@ class WaveManager {
         this.minions = [];
     }
 
+    startFirstRound(difficulty) {
+        this.selectedDifficulty = difficulty;
+        this.minionsToDeploy = this.selectedDifficulty.waves[0].numberOfMinions;
+    }
+
     update() {
-        if (this.paused) {
+        if (this.paused || !this.selectedDifficulty) {
             return;
         }
         if (this._shouldStartNextWave()) {
@@ -140,7 +200,7 @@ class WaveManager {
     }
 
     _getWave() {
-        return Waves[this.waveNumber];
+        return this.selectedDifficulty.waves[this.waveNumber];
     }
 
     _shouldDeployMinion() {
@@ -157,7 +217,7 @@ class WaveManager {
     }
 
     _triggerNextWave() {
-        if (this.waveNumber >= Waves.length - 1) {
+        if (this.waveNumber >= this.selectedDifficulty.waves.length - 1) {
             if (this.getMinions().length == 0) {
                 this.game.cursorManager.setCursor();
                 this.game.state.states['GameState'].destroy();

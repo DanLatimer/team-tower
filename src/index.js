@@ -5,6 +5,7 @@ import WaveManager from 'managers/WaveManager';
 import AudioManager from 'managers/AudioManager';
 import CursorManager from 'managers/CursorManager';
 
+import IntroScreen from 'states/IntroScreen';
 import GameState from 'states/GameState';
 import GameOverState from 'states/GameOverState';
 
@@ -19,9 +20,10 @@ class Game extends Phaser.Game {
         this.audioManager = new AudioManager(this);
         this.cursorManager = new CursorManager(this);
 
+        this.state.add('IntroScreen', IntroScreen, false);
         this.state.add('GameState', GameState, false);
         this.state.add('GameOverState', GameOverState, false);
-        this.state.start('GameState');
+        this.state.start('IntroScreen');
     }
 
     create() {

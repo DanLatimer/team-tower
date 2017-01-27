@@ -1,6 +1,5 @@
 import {Resources} from 'resources';
-import {Difficulties} from 'managers/waveManager';
-import WaveManager from 'managers/waveManager';
+import {Difficulties} from 'managers/WaveManager';
 
 const difficultyTextHeight = 50;
 

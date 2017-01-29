@@ -46,6 +46,10 @@ class InventoryManager {
 
     }
 
+    destroy() {
+        
+    }
+
     sell(initialCost) {
         this.addCoins(initialCost * 0.5);
     }

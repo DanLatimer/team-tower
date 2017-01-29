@@ -28,12 +28,7 @@ class GameState extends Phaser.State {
     }
 
     setup() {
-        this.game.audioManager.setup();
-        this.game.gridManager.setup();
-        this.game.guiManager.setup();
-        this.game.waveManager.setup();
-        this.game.inventoryManager.setup();
-        this.game.cursorManager.setup();
+        this.game.managers.forEach(manager => manager.setup());
         this.initialized = true;
 
         this.game.audio.music.ambiance.loop = true;
@@ -44,17 +39,13 @@ class GameState extends Phaser.State {
         if (!this.initialized) {
             return;
         }
-        this.game.gridManager.update();
-        this.game.guiManager.update();
-        this.game.waveManager.update();
-        this.game.inventoryManager.update();
+
+        this.game.managers.forEach(manager => manager.update());
     }
 
     destroy() {
         this.initialized = false;
-        this.game.waveManager.destroy();
-        this.game.guiManager.destroy();
-        this.game.gridManager.destroy();
+        this.game.managers.forEach(manager => manager.destroy());
     }
 }
 

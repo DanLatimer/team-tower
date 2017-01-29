@@ -19,6 +19,14 @@ class Game extends Phaser.Game {
         this.waveManager = new WaveManager(this);
         this.audioManager = new AudioManager(this);
         this.cursorManager = new CursorManager(this);
+        
+        this.managers = [
+            this.audioManager,
+            this.gridManager, 
+            this.inventoryManager, 
+            this.guiManager, 
+            this.waveManager, 
+            this.cursorManager];
 
         this.state.add('IntroScreen', IntroScreen, false);
         this.state.add('GameState', GameState, false);

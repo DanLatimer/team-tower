@@ -1,7 +1,7 @@
 import Tower from 'objects/towers/Tower';
 
 class InventoryItem {
-    constructor(name, sprite, isAnimated, cost, range = 0, rateOfFire = 0, damage = 0) {
+    constructor(name, sprite, isAnimated, cost, range = 0, rateOfFire = 0, damage = 0, spriteFrames) {
         this.name = name;
         this.sprite = sprite;
         this.cost = cost;
@@ -9,6 +9,7 @@ class InventoryItem {
         this.rateOfFire = rateOfFire;
         this.damage = damage;
         this.isAnimated = isAnimated;
+        this.spriteFrames = spriteFrames;
     }
 
     build(game, position, isCursor) {
@@ -21,7 +22,8 @@ class InventoryManager {
     static get Inventory() {
         return [
             new InventoryItem('Wall', 'basicWall', false, 5),
-            new InventoryItem('Turret', 'basicTurret', true, 15, 150, 2500, 1)
+            new InventoryItem('Turret', 'basicTurret', true, 15, 150, 2500, 1),
+            new InventoryItem('Frost', 'ice_tower', true, 25, 400, 10000, 3, [0,1,2,3,4,5,6,7,8,0]),
         ];
     };
 

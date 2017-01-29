@@ -19,7 +19,8 @@ export const Resources = {
         {name: 'zombie', path: 'images/zombie.png', width: 39, height: 40, frames: 16},
         {name: 'skeleton', path: 'images/skeleton.png', width: 36, height: 36, frames: 16},
         {name: 'fireElemental', path: 'images/fireElemental.png', width: 72, height: 72, frames: 16},
-        {name: 'basicTurret', path:'images/cannon_anim.png', width: 64, height: 64, frames: 8}
+        {name: 'basicTurret', path:'images/cannon_anim.png', width: 64, height: 64, frames: 8},
+        {name: 'ice_tower', path: 'images/ice_tower.png', width: 64, height: 64, frames: 9},
 
     ],
     fonts: [

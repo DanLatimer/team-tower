@@ -18,7 +18,7 @@ class Tower extends Phaser.Sprite {
         this.alpha = isCursor ? 0.3 : 1;
 
         if (this.isAnimated) {
-            this.animations.add('fire');    
+            this.animations.add('fire', this.inventoryItem.spriteFrames);    
         }
         
         this.anchor.setTo(0.5, 0.5);
@@ -54,7 +54,7 @@ class Tower extends Phaser.Sprite {
 
             this.game.audioManager.playSoundEffect('shoot');
             if (this.isAnimated) {
-                this.animations.play('fire', 30);    
+                this.animations.play('fire', 12, false);    
             }
             this.lastFire = new Date();
 

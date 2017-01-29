@@ -59,6 +59,10 @@ class Tower extends Phaser.Sprite {
             this.lastFire = new Date();
 
             nearestMinion.hit(this.damage);
+
+            if (this.inventoryItem.hasSlowEffect) {
+                nearestMinion.applySlowEffect();
+            }
         });
     }
 

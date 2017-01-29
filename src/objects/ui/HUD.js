@@ -27,7 +27,6 @@ class HUD extends Phaser.Group {
     }
 
     update() {
-        debugger;
         this.livesText.setText(this.getLivesTextText());
         this.coinsText.setText(this.getCoinsTextText());
     }

@@ -29,11 +29,9 @@ class IntroScreen extends Phaser.State {
             const bitmapText = this.add.bitmapText(center.x - 75, topY + (difficultyTextHeight * index), 'desyrel', difficulty.name);
             bitmapText.inputEnabled = true;
             bitmapText.events.onInputUp.add(() => {
-                debugger;
                 this.game.inventoryManager.lives = difficulty.lives;
                 this.game.inventoryManager.coins = difficulty.coins;
                 this.game.waveManager.startFirstRound(difficulty);
-
 
                 this.game.state.start('GameState');
             });

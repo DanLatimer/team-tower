@@ -1,9 +1,14 @@
 import Button from './Button';
 
+function getSprite(isMuted) {
+    return isMuted ? 'no_music_icon' : 'music_icon';
+}
+
 class MusicButton extends Button {
     constructor(game, position) {
-        super(game, position, 'music_icon', {x: 30, y: 30});
-        this.isMuted = false;
+        const isMuted = game.audioManager.isMusicMuted;
+        super(game, position, getSprite(isMuted), {x: 30, y: 30});
+        this.isMuted = isMuted;
     }
 
     update() {
@@ -13,8 +18,7 @@ class MusicButton extends Button {
     onClick() {
         this.isMuted = !this.isMuted;
 
-        var sprite = this.isMuted ? 'no_music_icon' : 'music_icon';
-        this.loadTexture(sprite, 0);
+        this.loadTexture(getSprite(this.isMuted), 0);
 
         this.game.audioManager.muteMusicVolume(this.isMuted);
     }

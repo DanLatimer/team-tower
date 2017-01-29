@@ -4,15 +4,16 @@ import {Colors} from 'colors';
 class AudioManager {
     constructor(game) {
         this.game = game;
-
-        this.currentFxVolume = 1;
-        this.isFxMuted = false;
-        this.currentMusicVolume = 1;
-        this.isMusicMuted = false;
     }
 
     setup() {
+        this.currentFxVolume = 1;
+        this.currentMusicVolume = 1;
+        this.isFxMuted = localStorage.getItem("isFxMuted") === "true" || false;
+        this.isMusicMuted = localStorage.getItem("isMusicMuted") === "true" || false;
 
+        this._updateMusicVolume();
+        this._updateFxVolume();
     }
 
     update() {
@@ -33,6 +34,8 @@ class AudioManager {
     }
 
     muteMusicVolume(isMuted) {
+        localStorage.setItem("isMusicMuted", isMuted);
+
         this.isMusicMuted = isMuted;
         this._updateMusicVolume();
     }
@@ -48,6 +51,7 @@ class AudioManager {
     }
 
     muteFxVolume(isMuted) {
+        localStorage.setItem("isFxMuted", isMuted);
         this.isFxMuted = isMuted;
         this._updateFxVolume();
     }

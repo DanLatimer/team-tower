@@ -28,6 +28,7 @@ class GameState extends Phaser.State {
     }
 
     setup() {
+        this.game.audioManager.setup();
         this.game.gridManager.setup();
         this.game.guiManager.setup();
         this.game.waveManager.setup();

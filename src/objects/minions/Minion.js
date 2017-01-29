@@ -14,6 +14,7 @@ class Minion extends Phaser.Sprite {
         this.initialHealth = Number(health); 
         this.health = Number(health);
         this.speed = 1;
+        this.isSlowed = false;
 
         this.myHealthBar = new HealthBar(this.game, {
             x: this.x - 20, 
@@ -75,6 +76,10 @@ class Minion extends Phaser.Sprite {
         }
     }
 
+    applySlowEffect() {
+        this.isSlowed = true;
+    }
+
     setSpeed(speed) {
         this.speed = speed;
     }
@@ -112,7 +117,9 @@ class Minion extends Phaser.Sprite {
         let millisSinceLastMoved = currentTime - this.lastMoved;
         this.lastMoved = currentTime;
 
-        return this.pixelsPerSecond * this.speed * (millisSinceLastMoved / 1000);
+        const slowedFactor = this.isSlowed ? 0.45 : 1;
+
+        return this.pixelsPerSecond * this.speed * (millisSinceLastMoved / 1000) * slowedFactor;
     }
 }
 

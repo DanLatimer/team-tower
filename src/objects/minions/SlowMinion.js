@@ -2,7 +2,7 @@ import Minion from './Minion';
 
 class SlowMinion extends Minion {
     constructor(game, spawn) {
-        const health = 1;
+        const health = 50;
         super(game, spawn, 'mummy', health);
 
         this.animations.add('walk');

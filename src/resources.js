@@ -21,7 +21,7 @@ export const Resources = {
         {name: 'fireElemental', path: 'images/fireElemental.png', width: 72, height: 72, frames: 16},
         {name: 'basicTurret', path:'images/cannon_anim.png', width: 64, height: 64, frames: 8},
         {name: 'ice_tower', path: 'images/ice_tower.png', width: 64, height: 64, frames: 9},
-
+        {name: 'jaccobs_ladder', path: 'images/jaccobs_ladder.png', width: 64, height: 64, frames: 5},
     ],
     fonts: [
         {name: 'desyrel', png: 'fonts/desyrel.png', xml: 'fonts/desyrel.xml'}

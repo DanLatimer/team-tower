@@ -11,8 +11,8 @@ class HUD extends Phaser.Group {
         this.game = game;
 
         this.gameName = new BitmapText(game, 5, 5, 'Murmuring Waters TD');
-        this.healthView = new BitmapText(game, 40, 45, this.getHealthViewText());
-        this.coinsView = new BitmapText(game, 220, 45, this.getCoinsViewText());
+        this.livesText = new BitmapText(game, 40, 45, this.getLivesTextText());
+        this.coinsText = new BitmapText(game, 220, 45, this.getCoinsTextText());
 
         this.x = 50;
 
@@ -27,16 +27,17 @@ class HUD extends Phaser.Group {
     }
 
     update() {
-        this.healthView.setText(this.getHealthViewText());
-        this.coinsView.setText(this.getCoinsViewText());
+        debugger;
+        this.livesText.setText(this.getLivesTextText());
+        this.coinsText.setText(this.getCoinsTextText());
     }
 
-    getCoinsViewText() {
+    getCoinsTextText() {
         return `Coins: ${this.game.inventoryManager.coins}`;
     }
 
-    getHealthViewText() {
-        return `Health: ${this.game.inventoryManager.health}`;
+    getLivesTextText() {
+        return `Lives: ${this.game.inventoryManager.lives}`;
     }
 }
 

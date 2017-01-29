@@ -7,6 +7,8 @@ import BossMinion from 'objects/minions/BossMinion';
 export const Difficulties = [
     {
         name: 'easy',
+        lives: 10,
+        coins: 100,
         waves : [
             {
                 numberOfMinions: 10,
@@ -52,6 +54,8 @@ export const Difficulties = [
     },
     {
         name: 'medium',
+        lives: 5,
+        coins: 160,
         waves : [
             {
                 numberOfMinions: 5,

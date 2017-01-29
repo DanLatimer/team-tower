@@ -37,7 +37,7 @@ class Minion extends Phaser.Sprite {
         let exitCell = grid.getExitCell();
         if (currentCell.equals(exitCell)) {
             console.log("MinorMinion escaped!");
-            this.game.inventoryManager.reduceHealth();
+            this.game.inventoryManager.reduceLives();
             this.kill();
             return;
         }
@@ -90,8 +90,8 @@ class Minion extends Phaser.Sprite {
         this.myHealthBar.setPosition(this.x, this.y - 20);
     }
 
-    hit() {
-        this.health -= 1;
+    hit(damage) {
+        this.health -= damage;
         this.myHealthBar.setPercent(this.health / this.initialHealth * 100);
 
         if (this.health <= 0) {

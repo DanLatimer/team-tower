@@ -23,19 +23,20 @@ class InventoryManager {
     static get Inventory() {
         return [
             new InventoryItem('Wall', 'basicWall', false, undefined, 5),
-            new InventoryItem('Turret', 'basicTurret', true, undefined, 15, 150, 2500, 1),
-            new InventoryItem('Frost', 'ice_tower', true, [0,1,2,3,4,5,6,7,8,0], 25, 300, 10000, 1, true),
+            new InventoryItem('Turret', 'basicTurret', true, undefined, 15, 150, 2500, 10),
+            new InventoryItem('Frost', 'ice_tower', true, [0,1,2,3,4,5,6,7,8,0], 25, 300, 10000, 30, true),
+            new InventoryItem('Lightning', 'jaccobs_ladder', true, [0,1,2,3,4,5,0], 15, 75, 750, 7, false),
+            
         ];
     };
 
     constructor(game) {
         this.game = game;
+        this.lives = null;
+        this.coins = null;
     }
 
-    setup(initialHealth, initialCoins) {
-        this.health = initialHealth;
-        this.coins = initialCoins;
-
+    setup() {
         this.selectTower(InventoryManager.Inventory[0]);
 
         this.game.input.onUp.add(this.purchaseSelected, this);
@@ -53,9 +54,9 @@ class InventoryManager {
         this.coins += coins;
     }
 
-    reduceHealth() {
-        this.health -= 1;
-        if (this.health <= 0) {
+    reduceLives() {
+        this.lives -= 1;
+        if (this.lives <= 0) {
             this.game.cursorManager.clearCursor();
             this.game.state.states['GameState'].destroy();
             this.game.state.states['GameOverState'].win = false;

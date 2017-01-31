@@ -23,10 +23,10 @@ class InventoryManager {
     static get Inventory() {
         return [
             new InventoryItem('Wall', 'basicWall', false, undefined, 5),
-            new InventoryItem('Turret', 'basicTurret', true, undefined, 15, 150, 2500, 10),
-            new InventoryItem('Frost', 'ice_tower', true, [0,1,2,3,4,5,6,7,8,0], 25, 300, 10000, 30, true),
-            new InventoryItem('Lightning', 'jaccobs_ladder', true, [0,1,2,3,4,5,0], 15, 75, 750, 7, false),
-            
+            new InventoryItem('Turret', 'basicTurret', true, undefined, 15, 150, 2500, 10), // dps = 10 / 2.500 = 4 ($15)
+            new InventoryItem('Frost', 'ice_tower', true, [0,1,2,3,4,5,6,7,8,0], 25, 300, 10000, 30, true), // dps = 30 / 10 = 3 ($25 + slow) 
+            new InventoryItem('Light', 'jaccobs_ladder', true, [0,1,2,3,4,5,0], 15, 75, 750, 4.5, false), // dps = 4.5 / 0.75 = 6 ($15 low range)
+            new InventoryItem('Fire', 'fire_tower', true, [0,1,2,3,4,5,0], 150, 220, 750, 15, false), // dps = 15 / 0.75 = 20 ($150 medium-large range)
         ];
     };
 
@@ -47,7 +47,7 @@ class InventoryManager {
     }
 
     destroy() {
-        
+
     }
 
     sell(initialCost) {

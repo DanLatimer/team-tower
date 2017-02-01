@@ -1,6 +1,6 @@
 import Market from '../objects/ui/Market';
 import HUD from '../objects/ui/HUD';
-import RangedBlockerCursor from '../objects/RangedBlockerCursor';
+import TowerCursor from '../objects/TowerCursor';
 
 class CursorManager {
 
@@ -64,7 +64,7 @@ class CursorManager {
     _setCursorToCellContentsInfo(cell) {
         const towerCursor = new cell.contents.inventoryItem.build(this.game, {x: 0, y: 0}, false);
 
-        this.setCursor(new RangedBlockerCursor(this.game, towerCursor, cell, true));
+        this.setCursor(new TowerCursor(this.game, towerCursor, cell, true));
         this._updateCursorLocation();        
     }
 
@@ -76,7 +76,7 @@ class CursorManager {
         const inventoryItem = this.game.inventoryManager.getSelectedInventoryItem();
         const towerCursor = inventoryItem.build(this.game, {x: 0, y: 0}, true); 
 
-        this.setCursor(new RangedBlockerCursor(this.game, towerCursor, cell, false));
+        this.setCursor(new TowerCursor(this.game, towerCursor, cell, false));
         this._updateCursorLocation();
     }
 

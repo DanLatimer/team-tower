@@ -1,17 +1,21 @@
 import {getScale} from './Scaler';
 
-const StatusSprites = {
-    SLOW: 'slow_status',
-    CRIT: 'crit_status',
-}
-
 const SpriteSize = 15;
 const Margin = 2;
 const HealthBarHeight = 16;
 
 class StatusGroup extends Phaser.Group {
+
+    static get StatusSprites() {
+        return {
+            SLOW: 'slow_status',
+            CRIT: 'crit_status',
+        };
+    }
+
     constructor(game, minion) {
         super(game, null, 'status_group');
+
         this.game = game;
         this.minion = minion;
 
@@ -27,10 +31,10 @@ class StatusGroup extends Phaser.Group {
     }
 
     addSlowStatus() {
-        if (this._alreadyHasStatus(StatusSprites.SLOW)) {
+        if (!this.game || this._alreadyHasStatus(StatusGroup.StatusSprites.SLOW)) {
             return;
         }
-        this._addStatus(StatusSprites.SLOW);
+        this._addStatus(StatusGroup.StatusSprites.SLOW);
     }
 
     setVisible(isVisible) {
@@ -53,7 +57,6 @@ class StatusGroup extends Phaser.Group {
 
     _updatePositions() {
         this.statusSprites.forEach((sprite, index) => {
-            debugger;
             sprite.x = 0;
             sprite.y = (SpriteSize + Margin) * index;
         });

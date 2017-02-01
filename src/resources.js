@@ -23,6 +23,8 @@ export const Resources = {
         {name: 'ice_tower', path: 'images/ice_tower.png', width: 64, height: 64, frames: 9},
         {name: 'jaccobs_ladder', path: 'images/jaccobs_ladder.png', width: 64, height: 64, frames: 5},
         {name: 'fire_tower', path: 'images/fire_tower.png', width: 64, height: 64, frames: 5},
+        {name: 'slow_status', path: 'images/slow_status.png', width: 32, height: 32, frames: 5},
+        {name: 'crit_status', path: 'images/crit_status.png', width: 32, height: 32, frames: 5},        
     ],
     fonts: [
         {name: 'desyrel', png: 'fonts/desyrel.png', xml: 'fonts/desyrel.xml'}

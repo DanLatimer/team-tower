@@ -171,7 +171,7 @@ class WaveManager {
 
     destroy() {
         this.paused = true;
-        this.minions.forEach(minion => minion.visible = false);
+        this.minions.forEach(minion => minion.setVisible(false));
     }
 
     _shouldStartNextWave() {

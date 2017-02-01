@@ -1,4 +1,5 @@
 import {HealthBar} from '../HealthBar';
+import StatusGroup from '../StatusGroup';
 
 class Minion extends Phaser.Sprite {
     constructor(game, spawn, sprite, health) {
@@ -25,6 +26,8 @@ class Minion extends Phaser.Sprite {
                 color: '#24ad2d'
             }
         });
+
+        this.statusGroup = new StatusGroup(this.game, this);
     }
 
     update() {
@@ -78,6 +81,7 @@ class Minion extends Phaser.Sprite {
 
     applySlowEffect() {
         this.isSlowed = true;
+        this.statusGroup.addSlowStatus();
     }
 
     setSpeed(speed) {
@@ -87,7 +91,8 @@ class Minion extends Phaser.Sprite {
     _move(x, y) {
         this.x = x;
         this.y = y;
-        this.myHealthBar.setPosition(this.x, this.y - 20);
+        this.myHealthBar.setPosition(x, y - 20);
+        this.statusGroup.move(x, y);
     }
 
     hit(damage) {
@@ -104,6 +109,14 @@ class Minion extends Phaser.Sprite {
         this.game.audioManager.playSoundEffect('explode');
         this.game.waveManager.removeMinion(this);
         this.myHealthBar.kill();
+        this.statusGroup.destroy();
+    }
+
+    setVisible(isVisible) {
+        this.visible = isVisible;
+        if (this.statusGroup) {
+            this.statusGroup.setVisible(isVisible);
+        }
     }
 
     _getDistance(pointA, pointB) {

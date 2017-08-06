@@ -4,16 +4,29 @@ import SlowMinion from 'objects/minions/SlowMinion';
 import FastMinion from 'objects/minions/FastMinion';
 import BossMinion from 'objects/minions/BossMinion';
 
-export const Difficulties = [
-    {
+export const Difficulties = [{
         name: 'easy',
         lives: 10,
-        coins: 100,
-        waves : [
-            {
-                numberOfMinions: 10,
+        coins: 130,
+        waves: [{
+                numberOfMinions: 20,
                 minionType: SlowMinion,
                 waveDelay: 3 * 1000
+            },
+            {
+                numberOfMinions: 15,
+                minionType: MinorMinion,
+                waveDelay: 2.5 * 1000
+            },
+            {
+                numberOfMinions: 10,
+                minionType: MajorMinion,
+                waveDelay: 10 * 1000
+            },
+            {
+                numberOfMinions: 20,
+                minionType: FastMinion,
+                waveDelay: 0.25 * 1000
             },
             {
                 numberOfMinions: 20,
@@ -21,44 +34,23 @@ export const Difficulties = [
                 waveDelay: 1 * 1000
             },
             {
-                numberOfMinions: 15,
+                numberOfMinions: 10,
                 minionType: MajorMinion,
                 waveDelay: 3 * 1000
             },
             {
                 numberOfMinions: 1,
                 minionType: BossMinion,
-                waveDelay: 15 * 1000
-            },
-            {
-                numberOfMinions: 30,
-                minionType: FastMinion,
-                waveDelay: 0.25 * 1000
-            },
-            {
-                numberOfMinions: 20,
-                minionType: MinorMinion,
-                waveDelay: 0.5 * 1000
-            },
-            {
-                numberOfMinions: 15,
-                minionType: MajorMinion,
-                waveDelay: 1.5 * 1000
-            },
-            {
-                numberOfMinions: 3,
-                minionType: BossMinion,
-                waveDelay: 3 * 1000
+                waveDelay: 10 * 1000
             }
         ]
     },
     {
-        name: 'medium',
+        name: 'hard',
         lives: 5,
         coins: 160,
-        waves : [
-            {
-                numberOfMinions: 5,
+        waves: [{
+                numberOfMinions: 10,
                 minionType: SlowMinion,
                 waveDelay: 2 * 1000
             },
@@ -70,7 +62,7 @@ export const Difficulties = [
             {
                 numberOfMinions: 10,
                 minionType: MajorMinion,
-                waveDelay: 3 * 1000
+                waveDelay: 5 * 1000
             },
             {
                 numberOfMinions: 30,
@@ -78,7 +70,7 @@ export const Difficulties = [
                 waveDelay: 0.25 * 1000
             },
             {
-                numberOfMinions: 3,
+                numberOfMinions: 1,
                 minionType: BossMinion,
                 waveDelay: 15 * 1000
             },
@@ -100,7 +92,7 @@ export const Difficulties = [
             {
                 numberOfMinions: 10,
                 minionType: BossMinion,
-                waveDelay: 3 * 1000
+                waveDelay: 10 * 1000
             }
         ]
     }
@@ -140,7 +132,7 @@ class WaveManager {
 
     setup() {
         this.initialCell = this.game.gridManager.grid.grid[0][0];
-        
+
         this.minions = [];
     }
 
@@ -180,7 +172,7 @@ class WaveManager {
 
     selectSpeed(speed) {
         let fxVolume = 1;
-        switch(speed) {
+        switch (speed) {
             case WaveManager.SPEEDS.slow:
                 this.speed = 1;
                 break;
@@ -226,7 +218,7 @@ class WaveManager {
                 this.game.cursorManager.setCursor();
                 this.game.state.states['GameState'].destroy();
                 this.game.state.states['GameOverState'].win = true;
-                this.game.state.start('GameOverState');                
+                this.game.state.start('GameOverState');
             }
 
             return;
